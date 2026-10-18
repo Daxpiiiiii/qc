@@ -1,4 +1,4 @@
-var C='qc-pre-alpha-1-v1';
+var C='qc-pre-alpha-1-v2';
 var A=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',function(e){
 e.waitUntil(caches.open(C).then(function(c){return c.addAll(A);}).then(function(){return self.skipWaiting();}));

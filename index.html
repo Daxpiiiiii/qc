@@ -46,7 +46,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <button class="tile" data-go="p3">rapport</button>
 <button class="tile" data-go="p1">rapport qualité</button>
 <button class="tile" data-go="p2">extrusion</button>
-<p class="ver">pre-alpha 1</p>
+<p class="ver">pre-alpha 1.1</p>
 </section>
 
 <section id="p1" class="v">
@@ -62,7 +62,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <option value="1">35-50 → 1%</option>
 <option value="0.5">&gt;50 → 0.5%</option>
 </select></div>
-<div><label class="lb" for="w">XX</label>
+<div><label class="lb" for="w" dir="ltr">ref g</label>
 <input id="w" class="in" type="number" step="any" inputmode="decimal"></div>
 </div>
 <div class="sep"></div>
@@ -74,8 +74,16 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <div><span class="lb">النتيجة</span><p class="bx" id="r">-</p></div>
 </div>
 <div class="sep"></div>
-<div><label class="lb" for="rw">الميزان الحقيقي</label>
-<input id="rw" class="in" type="number" step="any" inputmode="decimal">
+<div class="r3">
+<div><span class="lb" dir="ltr">résultat</span><p class="bx" id="gr">-</p></div>
+<div><label class="lb" for="en" dir="ltr">ENET</label>
+<input id="en" class="in" type="number" step="any" inputmode="decimal"></div>
+<div><label class="lb" for="ge" dir="ltr">échantillon g</label>
+<input id="ge" class="in" type="number" step="any" inputmode="decimal"></div>
+</div>
+<div class="sep"></div>
+<div><span class="lb">الميزان الحقيقي</span>
+<p class="bx" id="rw" style="background:var(--card);border-color:var(--line);color:var(--muted)">-</p>
 <p class="bx" id="st" style="background:var(--card);border-color:var(--line)"></p></div>
 <div class="sep"></div>
 <div class="r2">
@@ -127,14 +135,14 @@ function f2(n){return isFinite(n)?(Math.round(n*100)/100).toFixed(2):'-'}
 function f3(n){return isFinite(n)?String(Math.round(n*1000)/1000):'-'}
 function g(i){return document.getElementById(i)}
 function setSt(k){
-var s=g('st');
+var s=g('st'),r=g('rw');
 var m={
-low:['grammage faible','↓','var(--erb)','var(--erf)','var(--erl)'],
-ok:['','👍','var(--okb)','var(--okf)','var(--okl)'],
-high:['grammage élevé','↑','var(--erb)','var(--erf)','var(--erl)'],
+low:['grammage faible','\u2193','var(--erb)','var(--erf)','var(--erl)'],
+ok:['','\uD83D\uDC4D','var(--okb)','var(--okf)','var(--okl)'],
+high:['grammage \u00e9lev\u00e9','\u2191','var(--erb)','var(--erf)','var(--erl)'],
 none:['','','var(--card)','var(--muted)','var(--line)']
 }[k];
-s.style.background=m[2];s.style.color=m[3];s.style.borderColor=m[4];
+[s,r].forEach(function(e){e.style.background=m[2];e.style.color=m[3];e.style.borderColor=m[4];});
 s.textContent='';
 if(m[1]){var i=document.createElement('span');i.textContent=m[1];i.style.fontSize='24px';s.appendChild(i);}
 if(m[0]){var t=document.createElement('span');t.textContent=m[0];s.appendChild(t);}
@@ -144,19 +152,23 @@ var p=parseFloat(g('pct').value);
 var w=parseFloat(g('w').value);
 var u=parseFloat(g('u').value);
 var c=parseFloat(g('c').value)||0;
-var rw=parseFloat(g('rw').value);
+var ge=parseFloat(g('ge').value);
+var en=parseFloat(g('en').value);
 var d=w*p/100,mn=w-d,mx=w+d;
+var res=(en!==0)?ge/en:NaN;
 g('mn').textContent=f2(mn);
 g('mx').textContent=f2(mx);
 g('r').textContent=f3(w*u/1000+c);
 g('rmn').textContent=f3(mn*u/1000+c);
 g('rmx').textContent=f3(mx*u/1000+c);
-if(!isFinite(rw)||!isFinite(mn))setSt('none');
-else if(rw<mn)setSt('low');
-else if(rw>mx)setSt('high');
+g('gr').textContent=f3(res);
+g('rw').textContent=f3(res);
+if(!isFinite(res)||!isFinite(mn))setSt('none');
+else if(res<mn)setSt('low');
+else if(res>mx)setSt('high');
 else setSt('ok');
 }
-['pct','w','u','c','rw'].forEach(function(i){g(i).addEventListener('input',calc)});
+['pct','w','u','c','ge','en'].forEach(function(i){g(i).addEventListener('input',calc)});
 calc();
 
 var D=["BOBINE SF-PET 290 785 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 340 760 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 330 720 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 270 720 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 210 840 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 215 840 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 280 910 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 240 800 BLANC OPAQUE F3 SILICONE 2","BOBINE SF-PET 290 785 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 360 800 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 240 800 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 345 805 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 310 800 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 330 910 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 180 820 TRANSPARENT F3 SILICONE 2","BOBINE SF-PET 185 850 TRANSPARENT F3 SILICONE 2","BOBINE SF-PET 290 805 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 380 880 TRANSPARENT F1 SILICONE 2","BOBINE SF-PET 540 880 TRANSPARENT F1 SILICONE 2","BOBINE SF-PET 880 880 TRANSPARENT F1 SILICONE 2","BOBINE SF-PET 340 690 TRANSPARENT F1 SILICONE 2","BOBINE SF-PET 290 840 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 315 785 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 275 730 MARRON CLAIRE OPAQUE F3 SILICONE 2","BOBINE SF-PET 180 820 MARRON CLAIRE OPAQUE F3 SILICONE 2","BOBINE SF-PET 200 800 NOIR OPAQUE F3 SILICONE 2","BOBINE SF-PET 240 800 NOIR F3 SILICONE 3","BOBINE SF-PET 255 890 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 240 800 BLANC OPAQUE F3 SILICONE 2","BOBINE SF-PET 110 1000 BLANC OPAQUE F3 SILICONE"];
