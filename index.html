@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f5f8b">
+<title>QC pre-alpha 1</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+:root{--bg:#f4f5f7;--card:#fff;--text:#1b1f24;--muted:#5c6670;--line:#d6dbe1;--strong:#8a949f;--ab:#e3effa;--af:#0f4c7a;--aline:#9cc3e4;--okb:#e1f4e6;--okf:#14622b;--okl:#8fcea0;--erb:#fde6e6;--erf:#9a1c1c;--erl:#eba5a5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181c;--card:#1d2328;--text:#e8ecf0;--muted:#9aa5b0;--line:#2f373f;--strong:#6c7782;--ab:#16324a;--af:#a9d2f3;--aline:#2d5f88;--okb:#143a22;--okf:#9fe0b2;--okl:#2c6b42;--erb:#431c1c;--erf:#f4b4b4;--erl:#8a3a3a}}
+:root[data-theme="dark"]{--bg:#14181c;--card:#1d2328;--text:#e8ecf0;--muted:#9aa5b0;--line:#2f373f;--strong:#6c7782;--ab:#16324a;--af:#a9d2f3;--aline:#2d5f88;--okb:#143a22;--okf:#9fe0b2;--okl:#2c6b42;--erb:#431c1c;--erf:#f4b4b4;--erl:#8a3a3a}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.5}
+.app{max-width:520px;margin:0 auto;padding:16px}
+.lb{display:block;text-align:center;font-size:13px;color:var(--muted);margin:0 0 4px}
+.in{display:block;width:100%;height:46px;text-align:center;font-size:17px;font-weight:600;font-family:inherit;color:var(--text);background:var(--card);border:2px solid var(--strong);border-radius:10px;padding:0 6px}
+.in:focus{outline:3px solid var(--aline);outline-offset:1px}
+.bx{display:flex;align-items:center;justify-content:center;gap:8px;height:46px;margin:0;font-size:17px;font-weight:600;background:var(--ab);color:var(--af);border:1px solid var(--aline);border-radius:10px}
+.sep{border-top:1px solid var(--line);margin:16px 0}
+.r2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.r3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tile{display:flex;align-items:center;justify-content:center;width:100%;height:92px;margin:0 0 14px;font:600 21px/1 inherit;font-family:inherit;color:var(--text);background:var(--card);border:2px solid var(--strong);border-radius:14px}
+.tile:active{background:var(--ab)}
+.back{display:inline-flex;align-items:center;gap:6px;margin:0 0 14px;padding:8px 12px;font:500 15px inherit;font-family:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:10px}
+.ver{text-align:center;font-size:12px;color:var(--muted);margin-top:22px}
+#st{margin-top:10px}
+.cnt{text-align:center;font-size:13px;color:var(--muted);margin:10px 0}
+.wrap{border:1px solid var(--line);border-radius:10px;background:var(--card);overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;direction:ltr}
+th{background:var(--ab);color:var(--af);font-weight:600;padding:9px 10px;text-align:center;border-bottom:1px solid var(--aline)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-right:1px solid var(--line)}
+.empty{min-height:220px;border:2px dashed var(--strong);border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.v{display:none}.v.on{display:block}
+</style>
+</head>
+<body>
+<div class="app">
+
+<section id="home" class="v on">
+<button class="tile" data-go="p3">rapport</button>
+<button class="tile" data-go="p1">rapport qualité</button>
+<button class="tile" data-go="p2">extrusion</button>
+<p class="ver">pre-alpha 1</p>
+</section>
+
+<section id="p1" class="v">
+<button class="back" data-go="home">رجوع</button>
+<div class="r2">
+<div><label class="lb" for="pct">النسبة المئوية</label>
+<select id="pct" class="in" dir="ltr" style="font-size:15px">
+<option value="4">0-10 → 4%</option>
+<option value="3">10-15 → 3%</option>
+<option value="2.5">15-20 → 2.5%</option>
+<option value="2">20-25 → 2%</option>
+<option value="1.5">25-35 → 1.5%</option>
+<option value="1">35-50 → 1%</option>
+<option value="0.5">&gt;50 → 0.5%</option>
+</select></div>
+<div><label class="lb" for="w">XX</label>
+<input id="w" class="in" type="number" step="any" inputmode="decimal"></div>
+</div>
+<div class="sep"></div>
+<div class="r3">
+<div><label class="lb" for="u">عدد الوحدات</label>
+<input id="u" class="in" type="number" step="any" inputmode="decimal"></div>
+<div><label class="lb" for="c">الكرطون فيد</label>
+<input id="c" class="in" type="number" step="any" inputmode="decimal"></div>
+<div><span class="lb">النتيجة</span><p class="bx" id="r">-</p></div>
+</div>
+<div class="sep"></div>
+<div><label class="lb" for="rw">الميزان الحقيقي</label>
+<input id="rw" class="in" type="number" step="any" inputmode="decimal">
+<p class="bx" id="st" style="background:var(--card);border-color:var(--line)"></p></div>
+<div class="sep"></div>
+<div class="r2">
+<div><span class="lb"><span dir="ltr">+</span> أكبر مجال</span><p class="bx" id="mx">-</p></div>
+<div><span class="lb"><span dir="ltr">−</span> أصغر مجال</span><p class="bx" id="mn">-</p></div>
+</div>
+<div class="sep"></div>
+<div class="r2">
+<div><span class="lb"><span dir="ltr">+</span> RO</span><p class="bx" id="rmx">-</p></div>
+<div><span class="lb"><span dir="ltr">−</span> RO</span><p class="bx" id="rmn">-</p></div>
+</div>
+</section>
+
+<section id="p2" class="v">
+<button class="back" data-go="home">رجوع</button>
+<label class="lb" for="q">بحث</label>
+<input id="q" class="in" type="text" placeholder="210 x840" dir="ltr" autocomplete="off" inputmode="text">
+<p class="cnt" id="cnt"></p>
+<div class="wrap"><table>
+<thead><tr><th>N°</th><th>ARTICLE</th></tr></thead>
+<tbody id="tb"></tbody>
+</table></div>
+</section>
+
+<section id="p3" class="v">
+<button class="back" data-go="home">رجوع</button>
+<div class="empty">فارغة</div>
+</section>
+
+</div>
+<script>
+var PAGES=['home','p1','p2','p3'];
+function show(id){
+PAGES.forEach(function(x){document.getElementById(x).className='v'+(x===id?' on':'');});
+window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-go]').forEach(function(b){
+b.addEventListener('click',function(){
+var id=b.getAttribute('data-go');
+show(id);
+try{history.pushState({p:id},'');}catch(e){}
+});
+});
+window.addEventListener('popstate',function(e){
+show(e.state&&e.state.p?e.state.p:'home');
+});
+
+function f2(n){return isFinite(n)?(Math.round(n*100)/100).toFixed(2):'-'}
+function f3(n){return isFinite(n)?String(Math.round(n*1000)/1000):'-'}
+function g(i){return document.getElementById(i)}
+function setSt(k){
+var s=g('st');
+var m={
+low:['grammage faible','↓','var(--erb)','var(--erf)','var(--erl)'],
+ok:['','👍','var(--okb)','var(--okf)','var(--okl)'],
+high:['grammage élevé','↑','var(--erb)','var(--erf)','var(--erl)'],
+none:['','','var(--card)','var(--muted)','var(--line)']
+}[k];
+s.style.background=m[2];s.style.color=m[3];s.style.borderColor=m[4];
+s.textContent='';
+if(m[1]){var i=document.createElement('span');i.textContent=m[1];i.style.fontSize='24px';s.appendChild(i);}
+if(m[0]){var t=document.createElement('span');t.textContent=m[0];s.appendChild(t);}
+}
+function calc(){
+var p=parseFloat(g('pct').value);
+var w=parseFloat(g('w').value);
+var u=parseFloat(g('u').value);
+var c=parseFloat(g('c').value)||0;
+var rw=parseFloat(g('rw').value);
+var d=w*p/100,mn=w-d,mx=w+d;
+g('mn').textContent=f2(mn);
+g('mx').textContent=f2(mx);
+g('r').textContent=f3(w*u/1000+c);
+g('rmn').textContent=f3(mn*u/1000+c);
+g('rmx').textContent=f3(mx*u/1000+c);
+if(!isFinite(rw)||!isFinite(mn))setSt('none');
+else if(rw<mn)setSt('low');
+else if(rw>mx)setSt('high');
+else setSt('ok');
+}
+['pct','w','u','c','rw'].forEach(function(i){g(i).addEventListener('input',calc)});
+calc();
+
+var D=["BOBINE SF-PET 290 785 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 340 760 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 330 720 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 270 720 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 210 840 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 215 840 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 280 910 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 240 800 BLANC OPAQUE F3 SILICONE 2","BOBINE SF-PET 290 785 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 360 800 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 240 800 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 345 805 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 310 800 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 330 910 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 180 820 TRANSPARENT F3 SILICONE 2","BOBINE SF-PET 185 850 TRANSPARENT F3 SILICONE 2","BOBINE SF-PET 290 805 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 380 880 TRANSPARENT F1 SILICONE 2","BOBINE SF-PET 540 880 TRANSPARENT F1 SILICONE 2","BOBINE SF-PET 880 880 TRANSPARENT F1 SILICONE 2","BOBINE SF-PET 340 690 TRANSPARENT F1 SILICONE 2","BOBINE SF-PET 290 840 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 315 785 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 275 730 MARRON CLAIRE OPAQUE F3 SILICONE 2","BOBINE SF-PET 180 820 MARRON CLAIRE OPAQUE F3 SILICONE 2","BOBINE SF-PET 200 800 NOIR OPAQUE F3 SILICONE 2","BOBINE SF-PET 240 800 NOIR F3 SILICONE 3","BOBINE SF-PET 255 890 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 240 800 BLANC OPAQUE F3 SILICONE 2","BOBINE SF-PET 110 1000 BLANC OPAQUE F3 SILICONE"];
+function match(text,tokens){
+text=text.toLowerCase();
+var words=text.split(/[\s\-]+/);
+for(var i=0;i<tokens.length;i++){
+var t=tokens[i];
+if(/^\d+([.,]\d+)?$/.test(t)){if(words.indexOf(t)<0)return false;}
+else if(text.indexOf(t)<0)return false;
+}
+return true;
+}
+function render(){
+var q=g('q').value.toLowerCase().replace(/(\d)\s*[x\u00d7*]\s*(?=\d)/g,'$1 ');
+var tokens=q.split(/\s+/).filter(Boolean);
+var tb=g('tb');
+tb.textContent='';
+var n=0;
+D.forEach(function(a,idx){
+if(!match(a,tokens))return;
+n++;
+var tr=document.createElement('tr');
+var k=document.createElement('td');k.className='k';k.textContent=String(idx+1);
+var td=document.createElement('td');td.textContent=a;
+tr.appendChild(k);tr.appendChild(td);tb.appendChild(tr);
+});
+if(n===0){
+var tr=document.createElement('tr');
+var td=document.createElement('td');
+td.colSpan=2;td.style.textAlign='center';td.style.direction='rtl';td.textContent='ما كاين حتى نتيجة';
+tr.appendChild(td);tb.appendChild(tr);
+}
+g('cnt').textContent='عدد النتائج: '+n+' من '+D.length;
+}
+g('q').addEventListener('input',render);
+render();
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){});});}
+</script>
+</body>
+</html>
