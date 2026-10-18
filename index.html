@@ -46,7 +46,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <button class="tile" data-go="p3">rapport</button>
 <button class="tile" data-go="p1">rapport qualité</button>
 <button class="tile" data-go="p2">extrusion</button>
-<p class="ver">pre-alpha 1.1</p>
+<p class="ver">pre-alpha 1.2</p>
 </section>
 
 <section id="p1" class="v">
@@ -67,11 +67,11 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 </div>
 <div class="sep"></div>
 <div class="r3">
-<div><label class="lb" for="u">عدد الوحدات</label>
-<input id="u" class="in" type="number" step="any" inputmode="decimal"></div>
+<div><span class="lb">النتيجة</span><p class="bx" id="r">-</p></div>
 <div><label class="lb" for="c">الكرطون فيد</label>
 <input id="c" class="in" type="number" step="any" inputmode="decimal"></div>
-<div><span class="lb">النتيجة</span><p class="bx" id="r">-</p></div>
+<div><label class="lb" for="u">عدد الوحدات</label>
+<input id="u" class="in" type="number" step="any" inputmode="decimal"></div>
 </div>
 <div class="sep"></div>
 <div class="r3">
@@ -158,11 +158,11 @@ var d=w*p/100,mn=w-d,mx=w+d;
 var res=(en!==0)?ge/en:NaN;
 g('mn').textContent=f2(mn);
 g('mx').textContent=f2(mx);
-g('r').textContent=f3(w*u/1000+c);
-g('rmn').textContent=f3(mn*u/1000+c);
-g('rmx').textContent=f3(mx*u/1000+c);
-g('gr').textContent=f3(res);
-g('rw').textContent=f3(res);
+g('r').textContent=f2(w*u/1000+c);
+g('rmn').textContent=f2(mn*u/1000+c);
+g('rmx').textContent=f2(mx*u/1000+c);
+g('gr').textContent=f2(res);
+g('rw').textContent=f2(res);
 if(!isFinite(res)||!isFinite(mn))setSt('none');
 else if(res<mn)setSt('low');
 else if(res>mx)setSt('high');
