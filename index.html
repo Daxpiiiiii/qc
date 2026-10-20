@@ -71,7 +71,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <button class="tile" data-go="p3">rapport</button>
 <button class="tile" data-go="p1">rapport qualité</button>
 <button class="tile" data-go="p2">extrusion</button>
-<p class="ver">Alpha V1.1</p>
+<p class="ver">Alpha V1.2</p>
 </section>
 
 <!-- P1 rapport qualité -->
@@ -145,6 +145,40 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 </div>
 <div class="sep"></div>
 <button class="tile" data-go="thermo" style="height:70px;font-size:18px">rapport thermoformage</button>
+<button class="tile" data-go="rq" style="height:70px;font-size:18px">rapport qualité</button>
+</section>
+
+<!-- RAPPORT QUALITE -->
+<section id="rq" class="v">
+<button class="back" data-go="p3">➔</button>
+<p class="title">rapport qualité</p>
+<label class="lb" for="qref">recherche</label>
+<div class="search-row">
+<button class="dbbtn" id="qdb" type="button" title="قاعدة البيانات">🗄</button>
+<input id="qref" class="in" type="text" placeholder="HP018RS09C1P64" dir="ltr" autocomplete="off">
+</div>
+<div class="chips" id="qchips"></div>
+<div class="sep"></div>
+<div class="r2"><div><span class="lb">Ref insert</span><p class="bx" id="qins">-</p></div>
+<div><span class="lb">Réf produit</span><p class="bx" id="qlogo">-</p></div></div>
+<div class="sep"></div>
+<div class="r3" dir="ltr">
+<div><span class="lb">Microns (µm)</span><p class="bx" id="qmic">-</p></div>
+<div><span class="lb">Laize (mm)</span><p class="bx" id="qlaize">-</p></div>
+<div><span class="lb">Poids unité (g)</span><p class="bx" id="qpoids">-</p></div>
+</div>
+<div class="sep"></div>
+<div class="r3" dir="ltr">
+<div><span class="lb">Nb unités / CRT</span><p class="bx" id="qnb">-</p></div>
+<div><span class="lb">Carton vide (kg)</span><p class="bx" id="qcv">-</p></div>
+<div><span class="lb">Poids (kg)</span><p class="bx" id="qtot">-</p></div>
+</div>
+<div class="sep"></div>
+<div class="r3" dir="ltr">
+<div><span class="lb">Ref sachet</span><p class="bx" id="qsach">-</p><p class="bx sm" id="qsachdim">-</p></div>
+<div><span class="lb">Ref carton</span><p class="bx" id="qcart">-</p><p class="bx sm" id="qcartdim">-</p></div>
+<div><span class="lb">Ref palette</span><p class="bx" id="qplt">-</p><p class="bx sm" id="qpltdim">-</p></div>
+</div>
 </section>
 
 <!-- CARTON DB -->
@@ -240,7 +274,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 </div>
 <div class="wrap hscroll"><table id="ftable">
 <thead><tr>
-<th>REFHPPAL</th><th>MODEL</th><th>BOBINE</th><th>NBR PAQUET</th><th>NBR UNITE PAQUE</th><th>NBR UNITE PAR CRT</th><th>Ref carton</th><th>Ref sachet</th><th>Ref palette</th><th>NBR CARTO N PAR</th>
+<th>REFHPPAL</th><th>REF INSERT</th><th>MODEL</th><th>BOBINE</th><th>NBR PAQUET</th><th>NBR UNITE PAQUE</th><th>NBR UNITE PAR CRT</th><th>Ref carton</th><th>Ref sachet</th><th>Ref palette</th><th>NBR CARTO N PAR</th>
 </tr></thead>
 <tbody id="ftb"></tbody>
 </table></div>
@@ -249,7 +283,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 </div>
 <script>
 /* ========== NAV ========== */
-var PAGES=['home','p1','p2','p3','carton','sachets','thermo','fulldb'];
+var PAGES=['home','p1','p2','p3','carton','sachets','thermo','fulldb','rq'];
 function show(id){
 PAGES.forEach(function(x){var el=document.getElementById(x);if(el)el.className='v'+(x===id?' on':'');});
 window.scrollTo(0,0);
@@ -482,21 +516,21 @@ var SACHETS=[
 
 /* ========== MAIN PRODUCT DB (page 1 of 14) ========== */
 var PROD=[
-{ref:'HP018RS09C1P64',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 ROSE CLAIRE TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 ROSE CLAIRE TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64},
-{ref:'HP018TR09C1P64',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 TRANSPARENT F2 SILICONE 2',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64},
-{ref:'HP018VR09C1P64',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 VERT CLAIRE TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 VERT CLAIRE TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64},
-{ref:'HP019BN7,5C1P64',model:'PLAT PLASTIQUE PET ECO - diametre 195 BLANC OPAQUE 7,5 GR',bobine:'BOBINE SF-PET 170 710 BLANC OPAQUE F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT04',refSachet:'SCH77',refPalette:'PL-002',nbrCartoPar:64},
-{ref:'HP020BN05C1P80',model:'PLAT PLASTIQUE PET PETIT MODEL - diametre 165 BLANC OPAQUE 05 GR',bobine:'BOBINE SF-PET 160 800 BLANC OPAQUE F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT02',refSachet:'SCH82',refPalette:'PL-002',nbrCartoPar:80},
-{ref:'HP021TR05C1P30',model:'GOBLET PLASTIQUE PET COMMUN - diametre 82 TRANSPARENT 05 GR',bobine:'BOBINE SF-PET 640 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:60,nbrUnitePaque:25,nbrUniteCrt:1500,refCarton:'CRT07',refSachet:'SCH45',refPalette:'PL-003',nbrCartoPar:30},
-{ref:'HP022TR05C1P30',model:'BARQUETTE PLASTIQUE PET COOKIES HAUT 3 COMPARTIMENTS CARRE TRANSPARENT 05 GR',bobine:'BOBINE SF-PET 215 785 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:1932,nbrUniteCrt:1932,refCarton:'CRT07',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30},
-{ref:'HP023TR3,5C1P80',model:'POT PLASTIQUE PET GLACES - diametre 80 TRANSPARENT 3,5 GR',bobine:'BOBINE SF-PET 440 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH31',refPalette:'PL-003',nbrCartoPar:80},
-{ref:'HP023TR3,8C1P30',model:'POT PLASTIQUE PET GLACES - diametre 80 TRANSPARENT 3,8 GR',bobine:'BOBINE SF-PET 480 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:60,nbrUnitePaque:25,nbrUniteCrt:1500,refCarton:'CRT07',refSachet:'SCH45',refPalette:'PL-003',nbrCartoPar:30},
-{ref:'HP024DR05C1P28',model:'POT PLASTIQUE PET GATEAU - diametre 80 DORE FONCE OPAQUE 05 GR',bobine:'BOBINE SF-PET 620 770 DORE FONCE OPAQUE F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1500,nbrUniteCrt:1500,refCarton:'CRT01',refSachet:'SCH27',refPalette:'PL-001',nbrCartoPar:28},
-{ref:'HP024TR03C1P80',model:'POT PLASTIQUE PET GATEAU - diametre 80 TRANSPARENT 03 GR',bobine:'BOBINE SF-PET 375 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH31',refPalette:'PL-002',nbrCartoPar:80},
-{ref:'HP024TR04C1P80',model:'POT PLASTIQUE PET GATEAU - diametre 80 TRANSPARENT 04 GR',bobine:'BOBINE SF-PET 400 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH07',refPalette:'PL-003',nbrCartoPar:80},
-{ref:'HP025ML06C1P30',model:'BARQUETTE PLASTIQUE PET COOKIES - 2 COMPARTIMENTS RECTANGLE MIEL TRANSPARENT 06 GR',bobine:'BOBINE SF-PET 275 785 MIEL TRANSPARENT F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:2100,nbrUniteCrt:2100,refCarton:'CRT07',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30},
-{ref:'HP026TR25C1P20',model:'BARQUETTE PLASTIQUE PET BISCUITS BIG 12 COMPARTIMENTS ROND TRANSPARENT 25 GR',bobine:'BOBINE SF-PET 340 750 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:600,nbrUniteCrt:600,refCarton:'CRT15',refSachet:'SCH02',refPalette:'PL-002',nbrCartoPar:20},
-{ref:'HP027TR18C1P24',model:'BARQUETTE PLASTIQUE PET PERFORE F 30 TRANSPARENT 18 GR',bobine:'BOBINE SF-PET 280 705 TRANSPARENT F2 SILICONE 2',nbrPaquet:4,nbrUnitePaque:150,nbrUniteCrt:600,refCarton:'CRT23',refSachet:'SCH40',refPalette:'PL-006',nbrCartoPar:24}
+{ref:'HP018RS09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 ROSE CLAIRE TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 ROSE CLAIRE TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64},
+{ref:'HP018TR09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 TRANSPARENT F2 SILICONE 2',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64},
+{ref:'HP018VR09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 VERT CLAIRE TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 VERT CLAIRE TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64},
+{ref:'HP019BN7,5C1P64',insert:'M06-I1',model:'PLAT PLASTIQUE PET ECO - diametre 195 BLANC OPAQUE 7,5 GR',bobine:'BOBINE SF-PET 170 710 BLANC OPAQUE F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT04',refSachet:'SCH77',refPalette:'PL-002',nbrCartoPar:64},
+{ref:'HP020BN05C1P80',insert:'M07-I1',model:'PLAT PLASTIQUE PET PETIT MODEL - diametre 165 BLANC OPAQUE 05 GR',bobine:'BOBINE SF-PET 160 800 BLANC OPAQUE F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT02',refSachet:'SCH82',refPalette:'PL-002',nbrCartoPar:80},
+{ref:'HP021TR05C1P30',insert:'M08-I1',model:'GOBLET PLASTIQUE PET COMMUN - diametre 82 TRANSPARENT 05 GR',bobine:'BOBINE SF-PET 640 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:60,nbrUnitePaque:25,nbrUniteCrt:1500,refCarton:'CRT07',refSachet:'SCH45',refPalette:'PL-003',nbrCartoPar:30},
+{ref:'HP022TR05C1P30',insert:'M09-I4',model:'BARQUETTE PLASTIQUE PET COOKIES HAUT 3 COMPARTIMENTS CARRE TRANSPARENT 05 GR',bobine:'BOBINE SF-PET 215 785 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:1932,nbrUniteCrt:1932,refCarton:'CRT07',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30},
+{ref:'HP023TR3,5C1P80',insert:'M08-I2',model:'POT PLASTIQUE PET GLACES - diametre 80 TRANSPARENT 3,5 GR',bobine:'BOBINE SF-PET 440 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH31',refPalette:'PL-003',nbrCartoPar:80},
+{ref:'HP023TR3,8C1P30',insert:'M08-I2',model:'POT PLASTIQUE PET GLACES - diametre 80 TRANSPARENT 3,8 GR',bobine:'BOBINE SF-PET 480 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:60,nbrUnitePaque:25,nbrUniteCrt:1500,refCarton:'CRT07',refSachet:'SCH45',refPalette:'PL-003',nbrCartoPar:30},
+{ref:'HP024DR05C1P28',insert:'M08-I3',model:'POT PLASTIQUE PET GATEAU - diametre 80 DORE FONCE OPAQUE 05 GR',bobine:'BOBINE SF-PET 620 770 DORE FONCE OPAQUE F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1500,nbrUniteCrt:1500,refCarton:'CRT01',refSachet:'SCH27',refPalette:'PL-001',nbrCartoPar:28},
+{ref:'HP024TR03C1P80',insert:'M08-I3',model:'POT PLASTIQUE PET GATEAU - diametre 80 TRANSPARENT 03 GR',bobine:'BOBINE SF-PET 375 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH31',refPalette:'PL-002',nbrCartoPar:80},
+{ref:'HP024TR04C1P80',insert:'M08-I3',model:'POT PLASTIQUE PET GATEAU - diametre 80 TRANSPARENT 04 GR',bobine:'BOBINE SF-PET 400 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH07',refPalette:'PL-003',nbrCartoPar:80},
+{ref:'HP025ML06C1P30',insert:'M09-I3',model:'BARQUETTE PLASTIQUE PET COOKIES - 2 COMPARTIMENTS RECTANGLE MIEL TRANSPARENT 06 GR',bobine:'BOBINE SF-PET 275 785 MIEL TRANSPARENT F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:2100,nbrUniteCrt:2100,refCarton:'CRT07',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30},
+{ref:'HP026TR25C1P20',insert:'M13-I2',model:'BARQUETTE PLASTIQUE PET BISCUITS BIG 12 COMPARTIMENTS ROND TRANSPARENT 25 GR',bobine:'BOBINE SF-PET 340 750 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:600,nbrUniteCrt:600,refCarton:'CRT15',refSachet:'SCH02',refPalette:'PL-002',nbrCartoPar:20},
+{ref:'HP027TR18C1P24',insert:'M38-I1',model:'BARQUETTE PLASTIQUE PET PERFORE F 30 TRANSPARENT 18 GR',bobine:'BOBINE SF-PET 280 705 TRANSPARENT F2 SILICONE 2',nbrPaquet:4,nbrUnitePaque:150,nbrUniteCrt:600,refCarton:'CRT23',refSachet:'SCH40',refPalette:'PL-006',nbrCartoPar:24}
 ];
 
 var PALETTE={
@@ -684,6 +718,79 @@ renderFullDb();
 try{history.pushState({p:'fulldb'},'');}catch(e){}
 });
 
+/* ========== RAPPORT QUALITE (fiche) ========== */
+function findCartonDim(ref){
+if(!ref||ref==='-')return null;
+var r=CARTON.find(function(c){return c.ref===ref;});
+return r?r.dim:null;
+}
+function qSet(id,val){
+var el=g(id);
+var ok=val!=null&&val!==''&&val!=='-';
+el.textContent=ok?String(val):'-';
+if(ok)el.classList.remove('dim');else el.classList.add('dim');
+}
+function qSync(){
+/* carton vide + résultat viennent de la page "rapport qualité" (p1) */
+var c=g('c').value.trim();
+qSet('qcv',c!==''?c:null);
+var r=g('r').textContent;
+qSet('qtot',r!=='-'?r:null);
+}
+function qClear(){
+['qins','qlogo','qmic','qlaize','qpoids','qnb','qsach','qsachdim','qcart','qcartdim','qplt','qpltdim'].forEach(function(id){qSet(id,null);});
+g('qchips').textContent='';
+}
+function qFill(row){
+qSet('qlogo','HP/'+row.ref);
+qSet('qins',row.insert);
+var ml=extractMicLaize(row.bobine);
+qSet('qmic',ml.mic);
+qSet('qlaize',ml.laize);
+var p=extractPoids(row.model,row.ref);
+qSet('qpoids',p!=='-'?p.replace(/\s*GR$/i,''):null);
+qSet('qnb',row.nbrUniteCrt!=null?row.nbrUniteCrt:null);
+qSet('qsach',row.refSachet);
+qSet('qsachdim',findSachetDim(row.refSachet));
+qSet('qcart',row.refCarton);
+qSet('qcartdim',findCartonDim(row.refCarton));
+qSet('qplt',row.refPalette);
+qSet('qpltdim',PALETTE[row.refPalette]);
+g('qchips').textContent='';
+}
+function qSearch(){
+var q=g('qref').value.trim().toUpperCase().replace(/\s+/g,'').replace(/^HP\//,'');
+g('qchips').textContent='';
+if(!q){qClear();return;}
+var q2=q.replace(/^HP/i,'');
+var hits=PROD.filter(function(p){
+var r=p.ref.toUpperCase();
+return r.indexOf(q)===0||r.replace(/^HP/,'').indexOf(q2)===0;
+});
+if(hits.length===0){qClear();return;}
+if(hits.length===1){qFill(hits[0]);return;}
+qClear();
+hits.forEach(function(h){
+var b=document.createElement('button');
+b.type='button';b.className='chip';b.textContent='HP/'+h.ref;
+b.addEventListener('click',function(){
+g('qref').value=h.ref;
+qFill(h);
+});
+g('qchips').appendChild(b);
+});
+}
+g('qref').addEventListener('input',qSearch);
+g('qdb').addEventListener('click',function(){
+show('fulldb');
+renderFullDb();
+try{history.pushState({p:'fulldb'},'');}catch(e){}
+});
+['pct','w','u','c','ge','en'].forEach(function(i){g(i).addEventListener('input',qSync)});
+document.querySelectorAll('[data-go="rq"]').forEach(function(b){b.addEventListener('click',qSync);});
+window.addEventListener('popstate',qSync);
+qClear();qSync();
+
 /* ========== FULL DB ========== */
 var fpage=0,ffiltered=[];
 function renderFullDb(){
@@ -703,7 +810,7 @@ var tb=g('ftb');
 tb.textContent='';
 slice.forEach(function(r){
 var tr=document.createElement('tr');
-[r.ref,r.model,r.bobine,r.nbrPaquet,r.nbrUnitePaque,r.nbrUniteCrt,r.refCarton,r.refSachet,r.refPalette,r.nbrCartoPar].forEach(function(v){
+[r.ref,r.insert,r.model,r.bobine,r.nbrPaquet,r.nbrUnitePaque,r.nbrUniteCrt,r.refCarton,r.refSachet,r.refPalette,r.nbrCartoPar].forEach(function(v){
 var td=document.createElement('td');td.textContent=v!=null?String(v):'';
 tr.appendChild(td);
 });
@@ -711,7 +818,7 @@ tb.appendChild(tr);
 });
 if(!slice.length){
 var tr=document.createElement('tr');
-var td=document.createElement('td');td.colSpan=10;td.style.textAlign='center';td.style.direction='rtl';td.textContent='ما كاين حتى نتيجة';
+var td=document.createElement('td');td.colSpan=11;td.style.textAlign='center';td.style.direction='rtl';td.textContent='ما كاين حتى نتيجة';
 tr.appendChild(td);tb.appendChild(tr);
 }
 var total=Math.max(1,Math.ceil(ffiltered.length/PER));
