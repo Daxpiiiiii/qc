@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1f5f8b">
-<title>QC pre-alpha 1.3</title>
+<title>Alpha V1.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -32,7 +32,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-appl
 .tile:active{background:var(--ab)}
 .sq{display:flex;align-items:center;justify-content:center;height:80px;font:600 18px inherit;font-family:inherit;color:var(--text);background:var(--card);border:2px solid var(--strong);border-radius:14px}
 .sq:active{background:var(--ab)}
-.back{display:inline-flex;align-items:center;gap:6px;margin:0 0 14px;padding:8px 12px;font:500 15px inherit;font-family:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:10px}
+.back{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;margin:0 0 14px;padding:0;font:600 20px inherit;font-family:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:10px}
 .ver{text-align:center;font-size:12px;color:var(--muted);margin-top:22px}
 #st{margin-top:10px}
 .cnt{text-align:center;font-size:13px;color:var(--muted);margin:10px 0}
@@ -44,7 +44,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 .empty{min-height:120px;border:2px dashed var(--strong);border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--muted);margin-bottom:14px}
 .v{display:none}.v.on{display:block}
 .pager{display:flex;align-items:center;justify-content:center;gap:12px;margin:12px 0}
-.pager button{padding:8px 14px;font:500 14px inherit;font-family:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;color:var(--text)}
+.pager button{width:40px;height:40px;display:flex;align-items:center;justify-content:center;font:600 18px inherit;font-family:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;color:var(--text)}
 .pager button:disabled{opacity:.4}
 .pager span{font-size:14px;color:var(--muted)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;justify-content:center}
@@ -57,6 +57,10 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 .hscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .title{text-align:center;font-size:18px;font-weight:700;margin:0 0 14px}
 .note{text-align:center;font-size:12px;color:var(--muted);margin:8px 0}
+.midx{display:flex;align-items:center;justify-content:center;gap:2px;height:42px;max-width:140px;margin:0 auto;font-size:15px;font-weight:600;background:var(--ab);color:var(--af);border:1px solid var(--aline);border-radius:10px;padding:0 2px;text-align:center}
+.midx.dim{background:var(--dim);color:var(--muted);border-color:var(--line)}
+.midx span{flex:1;text-align:center}
+.midx .x{flex-shrink:0;font-weight:700;font-size:14px;padding:0;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -67,12 +71,12 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <button class="tile" data-go="p3">rapport</button>
 <button class="tile" data-go="p1">rapport qualité</button>
 <button class="tile" data-go="p2">extrusion</button>
-<p class="ver">pre-alpha 1.3 · demo</p>
+<p class="ver">Alpha V1.1</p>
 </section>
 
 <!-- P1 rapport qualité -->
 <section id="p1" class="v">
-<button class="back" data-go="home">رجوع</button>
+<button class="back" data-go="home">➔</button>
 <div class="r2">
 <div><label class="lb" for="pct">النسبة المئوية</label>
 <select id="pct" class="in" dir="ltr" style="font-size:15px">
@@ -121,7 +125,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 
 <!-- P2 extrusion -->
 <section id="p2" class="v">
-<button class="back" data-go="home">رجوع</button>
+<button class="back" data-go="home">➔</button>
 <label class="lb" for="q">بحث</label>
 <input id="q" class="in" type="text" placeholder="210 x840" dir="ltr" autocomplete="off" inputmode="text">
 <p class="cnt" id="cnt"></p>
@@ -133,12 +137,8 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 
 <!-- P3 rapport -->
 <section id="p3" class="v">
-<button class="back" data-go="home">رجوع</button>
-<label class="lb">بحث 1</label>
-<input class="in" type="text" placeholder="قريباً" disabled>
-<label class="lb" style="margin-top:10px">بحث 2</label>
-<input class="in" type="text" placeholder="قريباً" disabled>
-<div class="sep"></div>
+<button class="back" data-go="home">➔</button>
+<button class="sq" data-go="fulldb" style="width:100%;margin-bottom:10px">Base de donnees</button>
 <div class="r2">
 <button class="sq" data-go="carton">carton</button>
 <button class="sq" data-go="sachets">sachets</button>
@@ -149,13 +149,13 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 
 <!-- CARTON DB -->
 <section id="carton" class="v">
-<button class="back" data-go="p3">رجوع</button>
+<button class="back" data-go="p3">➔</button>
 <label class="lb" for="cq">recherche</label>
-<input id="cq" class="in" type="text" placeholder="ref أو dimensions" dir="ltr" autocomplete="off">
+<input id="cq" class="in" type="text" dir="ltr" autocomplete="off">
 <div class="pager">
-<button id="cprev" type="button">السابق</button>
+<button id="cprev" type="button">→</button>
 <span id="cinfo">1 / 1</span>
-<button id="cnext" type="button">التالي</button>
+<button id="cnext" type="button">←</button>
 </div>
 <div class="wrap"><table>
 <thead><tr><th>Référence</th><th>Dimensions (mm)</th></tr></thead>
@@ -165,13 +165,13 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 
 <!-- SACHETS DB -->
 <section id="sachets" class="v">
-<button class="back" data-go="p3">رجوع</button>
+<button class="back" data-go="p3">➔</button>
 <label class="lb" for="sq">recherche</label>
-<input id="sq" class="in" type="text" placeholder="ref أو dimensions" dir="ltr" autocomplete="off">
+<input id="sq" class="in" type="text" dir="ltr" autocomplete="off">
 <div class="pager">
-<button id="sprev" type="button">السابق</button>
+<button id="sprev" type="button">→</button>
 <span id="sinfo">1 / 1</span>
-<button id="snext" type="button">التالي</button>
+<button id="snext" type="button">←</button>
 </div>
 <div class="wrap"><table>
 <thead><tr><th>Référence</th><th>Dimensions (mm)</th></tr></thead>
@@ -181,7 +181,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 
 <!-- THERMOFORMAGE -->
 <section id="thermo" class="v">
-<button class="back" data-go="p3">رجوع</button>
+<button class="back" data-go="p3">➔</button>
 <p class="title">rapport thermoformage</p>
 <label class="lb" for="tref">recherche</label>
 <div class="search-row">
@@ -194,7 +194,9 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <div class="r3">
 <div><span class="lb">Colr</span><p class="bx" id="tcol">-</p></div>
 <div><span class="lb">Logo/ref</span><p class="bx" id="tlogo">-</p></div>
-<div><span class="lb" dir="ltr">mic x laize</span><p class="bx" id="tmic">-</p></div>
+<div><span class="lb" dir="ltr">mic x laize</span>
+<div class="midx dim" id="tmlbox" dir="ltr"><span id="tmicv">-</span><span class="x">×</span><span id="tlaizev">-</span></div>
+</div>
 </div>
 <div class="sep"></div>
 <!-- Row 2 -->
@@ -228,13 +230,13 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 
 <!-- FULL DB browser -->
 <section id="fulldb" class="v">
-<button class="back" data-go="thermo">رجوع</button>
+<button class="back" data-go="p3">➔</button>
 <label class="lb" for="fq">recherche</label>
 <input id="fq" class="in" type="text" placeholder="reference" dir="ltr" autocomplete="off">
 <div class="pager">
-<button id="fprev" type="button">السابق</button>
+<button id="fprev" type="button">→</button>
 <span id="finfo">1 / 1</span>
-<button id="fnext" type="button">التالي</button>
+<button id="fnext" type="button">←</button>
 </div>
 <div class="wrap hscroll"><table id="ftable">
 <thead><tr>
@@ -256,6 +258,7 @@ document.querySelectorAll('[data-go]').forEach(function(b){
 b.addEventListener('click',function(){
 var id=b.getAttribute('data-go');
 show(id);
+if(id==='fulldb') renderFullDb();
 try{history.pushState({p:id},'');}catch(e){}
 });
 });
@@ -517,15 +520,12 @@ return list.filter(function(row){
 var ref=row.ref.toLowerCase();
 var dim=row.dim.toLowerCase();
 var dnums=dimNums(row.dim);
-/* text parts must appear in ref */
 for(var i=0;i<textParts.length;i++){
 if(ref.indexOf(textParts[i])<0)return false;
 }
-/* numbers: all must be in dim OR ref contains them */
 if(nums.length){
 var allInDim=nums.every(function(n){return dnums.some(function(d){return d===n||d.indexOf(n)===0;});});
 var allInRef=nums.every(function(n){return ref.indexOf(n)>=0;});
-/* single 1-2 digit: try ref first */
 if(nums.length===1 && /^\d{1,2}$/.test(nums[0])){
 if(ref.indexOf(nums[0])>=0)return true;
 return allInDim;
@@ -577,14 +577,13 @@ makePager({data:SACHETS,input:'sq',tbody:'stb',prev:'sprev',next:'snext',info:'s
 
 /* ========== THERMOFORMAGE ========== */
 function extractColor(ref){
-/* HP + 3 digits + color code (letters) + ... */
 var m=ref.match(/^HP\d{3}([A-Z]{2})/i);
 return m?m[1].toUpperCase():'-';
 }
 function extractMicLaize(bobine){
 var m=(bobine||'').match(/SF-PET\s+(\d+(?:[.,]\d+)?)\s+(\d+(?:[.,]\d+)?)/i);
-if(m)return m[1]+' x '+m[2];
-return '-';
+if(m)return {mic:m[1].replace(',','.'),laize:m[2].replace(',','.')};
+return {mic:null,laize:null};
 }
 function extractPoids(model,ref){
 var m=(model||'').match(/(\d+(?:[.,]\d+)?)\s*GR/i);
@@ -599,21 +598,30 @@ var r=SACHETS.find(function(s){return s.ref===ref;});
 return r?r.dim:null;
 }
 function clearThermo(){
-['tcol','tlogo','tmic','tprod','tpoids','tcarton','tsachet','tsachdim','tnbcrt','tnbsach','tnbunits','tnbplt','tplt','tpltdim'].forEach(function(id){
-var el=g(id);el.textContent='-';
-el.classList.add('dim');
+['tcol','tlogo','tmicv','tlaizev','tprod','tpoids','tcarton','tsachet','tsachdim','tnbcrt','tnbsach','tnbunits','tnbplt','tplt','tpltdim'].forEach(function(id){
+var el=g(id);
+if(id==='tmicv'||id==='tlaizev')el.textContent='-';
+else{el.textContent='-';el.classList.add('dim');}
 });
-g('tsanity').textContent='';
+g('tmlbox').classList.add('dim');
 g('tchips').textContent='';
 }
 function fillThermo(row){
 g('tcol').textContent=extractColor(row.ref);
 g('tcol').classList.remove('dim');
-var logo='HP/'+row.ref.replace(/^HP/i,'');
+var logo='HP/'+row.ref;
 g('tlogo').textContent=logo;
 g('tlogo').classList.remove('dim');
-g('tmic').textContent=extractMicLaize(row.bobine);
-g('tmic').classList.remove('dim');
+var ml=extractMicLaize(row.bobine);
+if(ml.mic!=null){
+g('tmicv').textContent=ml.mic;
+g('tlaizev').textContent=ml.laize;
+g('tmlbox').classList.remove('dim');
+}else{
+g('tmicv').textContent='-';
+g('tlaizev').textContent='-';
+g('tmlbox').classList.add('dim');
+}
 g('tprod').textContent=row.model;
 g('tprod').classList.remove('dim');
 g('tpoids').textContent=extractPoids(row.model,row.ref);
@@ -622,7 +630,6 @@ g('tcarton').textContent=row.refCarton||'-';
 g('tcarton').classList.remove('dim');
 g('tnbcrt').textContent=row.nbrUniteCrt!=null?String(row.nbrUniteCrt):'-';
 g('tnbcrt').classList.remove('dim');
-/* sachet */
 var sref=row.refSachet||'';
 g('tsachet').textContent=sref||'-';
 var sdim=findSachetDim(sref);
@@ -635,7 +642,6 @@ g('tsachet').classList.add('dim');
 g('tsachdim').textContent='-';
 g('tsachdim').classList.add('dim');
 }
-/* row 4 */
 g('tnbsach').textContent=row.nbrUnitePaque!=null?String(row.nbrUnitePaque):'-';
 g('tnbsach').classList.remove('dim');
 g('tnbunits').textContent=row.nbrPaquet!=null?String(row.nbrPaquet):'-';
@@ -647,13 +653,6 @@ g('tplt').classList.remove('dim');
 var pdim=PALETTE[row.refPalette]||'-';
 g('tpltdim').textContent=pdim;
 if(pdim!=='-')g('tpltdim').classList.remove('dim');else g('tpltdim').classList.add('dim');
-/* sanity */
-var a=row.nbrPaquet,b=row.nbrUnitePaque,c=row.nbrUniteCrt;
-if(a!=null&&b!=null&&c!=null){
-var ok=(a*b===c);
-g('tsanity').textContent=ok?('✓ '+a+' × '+b+' = '+c):('⚠ '+a+' × '+b+' ≠ '+c);
-g('tsanity').style.color=ok?'var(--okf)':'var(--erf)';
-}else g('tsanity').textContent='';
 }
 function searchThermo(){
 var q=g('tref').value.trim().toUpperCase().replace(/\s+/g,'');
@@ -666,7 +665,6 @@ return r.indexOf(q)===0||r.replace(/^HP/,'').indexOf(q2)===0;
 });
 if(hits.length===0){clearThermo();return;}
 if(hits.length===1){fillThermo(hits[0]);return;}
-/* multiple → chips */
 clearThermo();
 hits.forEach(function(h){
 var b=document.createElement('button');
@@ -682,8 +680,8 @@ g('tchips').appendChild(b);
 g('tref').addEventListener('input',searchThermo);
 g('tdb').addEventListener('click',function(){
 show('fulldb');
-try{history.pushState({p:'fulldb'},'');}catch(e){}
 renderFullDb();
+try{history.pushState({p:'fulldb'},'');}catch(e){}
 });
 
 /* ========== FULL DB ========== */
