@@ -24,16 +24,16 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-appl
 .bx{display:flex;align-items:center;justify-content:center;gap:8px;height:46px;margin:0;font-size:17px;font-weight:600;background:var(--ab);color:var(--af);border:1px solid var(--aline);border-radius:10px;padding:0 6px;text-align:center;word-break:break-all}
 .bx.dim{background:var(--dim);color:var(--muted);border-color:var(--line)}
 .bx.sm{height:32px;font-size:13px;margin-top:4px}
-.sep{border-top:1px solid var(--line);margin:16px 0;width:100%}
-.r2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%}
+.sep{border-top:1px solid var(--line);margin:16px 0}
+.r2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .r3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .r4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-.tile{display:flex;align-items:center;justify-content:center;width:100%;height:92px;margin:0;font:600 21px/1 inherit;font-family:inherit;color:var(--text);background:var(--card);border:2px solid var(--strong);border-radius:14px}
+.tile{display:flex;align-items:center;justify-content:center;width:100%;height:92px;margin:0 0 14px;font:600 21px/1 inherit;font-family:inherit;color:var(--text);background:var(--card);border:2px solid var(--strong);border-radius:14px}
 .tile:active{background:var(--ab)}
-.sq{display:flex;align-items:center;justify-content:center;height:80px;font:600 18px inherit;font-family:inherit;color:var(--text);background:var(--card);border:2px solid var(--strong);border-radius:14px;width:100%}
+.sq{display:flex;align-items:center;justify-content:center;height:80px;font:600 18px inherit;font-family:inherit;color:var(--text);background:var(--card);border:2px solid var(--strong);border-radius:14px}
 .sq:active{background:var(--ab)}
-.back{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;margin:0 0 14px;padding:0;font:600 20px inherit;font-family:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:10px;align-self:flex-start}
-.ver{text-align:center;font-size:12px;color:var(--muted);margin-top:10px}
+.back{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;margin:0 0 14px;padding:0;font:600 20px inherit;font-family:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:10px}
+.ver{text-align:center;font-size:12px;color:var(--muted);margin-top:22px}
 #st{margin-top:10px}
 .cnt{text-align:center;font-size:13px;color:var(--muted);margin:10px 0}
 .wrap{border:1px solid var(--line);border-radius:10px;background:var(--card);overflow-x:auto}
@@ -43,25 +43,6 @@ td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;white-sp
 td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-right:1px solid var(--line)}
 .empty{min-height:120px;border:2px dashed var(--strong);border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--muted);margin-bottom:14px}
 .v{display:none}.v.on{display:block}
-
-/* توسيط عناصر الشاشة الرئيسية وتوسيط عناصر التقرير الأول */
-#home.v.on {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-  gap: 20px;
-}
-#p3.v.on {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-  gap: 16px;
-}
-
 .pager{display:flex;align-items:center;justify-content:center;gap:12px;margin:12px 0}
 .pager button{width:40px;height:40px;display:flex;align-items:center;justify-content:center;font:600 18px inherit;font-family:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;color:var(--text)}
 .pager button:disabled{opacity:.4}
@@ -132,13 +113,14 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <p class="bx" id="st" style="background:var(--card);border-color:var(--line)"></p></div>
 <div class="sep"></div>
 <div class="r2">
-<div><span class="lb"><span dir="ltr">+</span> أكبر مجال</span><p class="bx" id="mx">-</p></div>
-<div><span class="lb"><span dir="ltr">−</span> أصغر مجال</span><p class="bx" id="mn">-</p></div>
+<div><span class="lb" dir="ltr">RO+</span><p class="bx" id="mx">-</p></div>
+<div><span class="lb" dir="ltr">RO−</span><p class="bx" id="mn">-</p></div>
 </div>
 <div class="sep"></div>
-<div class="r2">
-<div><span class="lb"><span dir="ltr">+</span> RO</span><p class="bx" id="rmx">-</p></div>
-<div><span class="lb"><span dir="ltr">−</span> RO</span><p class="bx" id="rmn">-</p></div>
+<div class="r3">
+<div><span class="lb" dir="ltr">(+)</span><p class="bx" id="rmx">-</p></div>
+<div><span class="lb" dir="ltr">(−)</span><p class="bx" id="rmn">-</p></div>
+<div><span class="lb" dir="ltr">résultat</span><p class="bx" id="rres">-</p></div>
 </div>
 </section>
 
@@ -157,7 +139,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <!-- P3 rapport -->
 <section id="p3" class="v">
 <button class="back" data-go="home">➔</button>
-<button class="sq" data-go="fulldb" style="width:100%;">Base de donnees</button>
+<button class="sq" data-go="fulldb" style="width:100%;margin-bottom:10px">Base de donnees</button>
 <div class="r2">
 <button class="sq" data-go="carton">carton</button>
 <button class="sq" data-go="sachets">sachets</button>
@@ -347,8 +329,9 @@ var res=(en!==0)?ge/en:NaN;
 g('mn').textContent=f2(mn);
 g('mx').textContent=f2(mx);
 g('r').textContent=f2(w*u/1000+c);
-g('rmn').textContent=f2(mn*u/1000+c);
-g('rmx').textContent=f2(mx*u/1000+c);
+g('rmn').textContent=f2(res*(1-p/100)*u/1000+c);
+g('rmx').textContent=f2(res*(1+p/100)*u/1000+c);
+g('rres').textContent=f2(res);
 g('gr').textContent=f2(res);
 g('rw').textContent=f2(res);
 if(!isFinite(res)||!isFinite(mn))setSt('none');
