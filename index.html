@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1f5f8b">
-<title>QC pre-alpha 1</title>
+<title>QC pre-alpha 1.3</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="mobile-web-app-capable" content="yes">
 <style>
-:root{--bg:#f4f5f7;--card:#fff;--text:#1b1f24;--muted:#5c6670;--line:#d6dbe1;--strong:#8a949f;--ab:#e3effa;--af:#0f4c7a;--aline:#9cc3e4;--okb:#e1f4e6;--okf:#14622b;--okl:#8fcea0;--erb:#fde6e6;--erf:#9a1c1c;--erl:#eba5a5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181c;--card:#1d2328;--text:#e8ecf0;--muted:#9aa5b0;--line:#2f373f;--strong:#6c7782;--ab:#16324a;--af:#a9d2f3;--aline:#2d5f88;--okb:#143a22;--okf:#9fe0b2;--okl:#2c6b42;--erb:#431c1c;--erf:#f4b4b4;--erl:#8a3a3a}}
-:root[data-theme="dark"]{--bg:#14181c;--card:#1d2328;--text:#e8ecf0;--muted:#9aa5b0;--line:#2f373f;--strong:#6c7782;--ab:#16324a;--af:#a9d2f3;--aline:#2d5f88;--okb:#143a22;--okf:#9fe0b2;--okl:#2c6b42;--erb:#431c1c;--erf:#f4b4b4;--erl:#8a3a3a}
+:root{--bg:#f4f5f7;--card:#fff;--text:#1b1f24;--muted:#5c6670;--line:#d6dbe1;--strong:#8a949f;--ab:#e3effa;--af:#0f4c7a;--aline:#9cc3e4;--okb:#e1f4e6;--okf:#14622b;--okl:#8fcea0;--erb:#fde6e6;--erf:#9a1c1c;--erl:#eba5a5;--dim:#eceff2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181c;--card:#1d2328;--text:#e8ecf0;--muted:#9aa5b0;--line:#2f373f;--strong:#6c7782;--ab:#16324a;--af:#a9d2f3;--aline:#2d5f88;--okb:#143a22;--okf:#9fe0b2;--okl:#2c6b42;--erb:#431c1c;--erf:#f4b4b4;--erl:#8a3a3a;--dim:#252b32}}
+:root[data-theme="dark"]{--bg:#14181c;--card:#1d2328;--text:#e8ecf0;--muted:#9aa5b0;--line:#2f373f;--strong:#6c7782;--ab:#16324a;--af:#a9d2f3;--aline:#2d5f88;--okb:#143a22;--okf:#9fe0b2;--okl:#2c6b42;--erb:#431c1c;--erf:#f4b4b4;--erl:#8a3a3a;--dim:#252b32}
 html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.5}
@@ -20,12 +20,18 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-appl
 .lb{display:block;text-align:center;font-size:13px;color:var(--muted);margin:0 0 4px}
 .in{display:block;width:100%;height:46px;text-align:center;font-size:17px;font-weight:600;font-family:inherit;color:var(--text);background:var(--card);border:2px solid var(--strong);border-radius:10px;padding:0 6px}
 .in:focus{outline:3px solid var(--aline);outline-offset:1px}
-.bx{display:flex;align-items:center;justify-content:center;gap:8px;height:46px;margin:0;font-size:17px;font-weight:600;background:var(--ab);color:var(--af);border:1px solid var(--aline);border-radius:10px}
+.in:disabled{opacity:.55;background:var(--dim)}
+.bx{display:flex;align-items:center;justify-content:center;gap:8px;height:46px;margin:0;font-size:17px;font-weight:600;background:var(--ab);color:var(--af);border:1px solid var(--aline);border-radius:10px;padding:0 6px;text-align:center;word-break:break-all}
+.bx.dim{background:var(--dim);color:var(--muted);border-color:var(--line)}
+.bx.sm{height:32px;font-size:13px;margin-top:4px}
 .sep{border-top:1px solid var(--line);margin:16px 0}
 .r2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .r3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.r4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .tile{display:flex;align-items:center;justify-content:center;width:100%;height:92px;margin:0 0 14px;font:600 21px/1 inherit;font-family:inherit;color:var(--text);background:var(--card);border:2px solid var(--strong);border-radius:14px}
 .tile:active{background:var(--ab)}
+.sq{display:flex;align-items:center;justify-content:center;height:80px;font:600 18px inherit;font-family:inherit;color:var(--text);background:var(--card);border:2px solid var(--strong);border-radius:14px}
+.sq:active{background:var(--ab)}
 .back{display:inline-flex;align-items:center;gap:6px;margin:0 0 14px;padding:8px 12px;font:500 15px inherit;font-family:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:10px}
 .ver{text-align:center;font-size:12px;color:var(--muted);margin-top:22px}
 #st{margin-top:10px}
@@ -35,20 +41,36 @@ table{border-collapse:collapse;width:100%;font-size:14px;direction:ltr}
 th{background:var(--ab);color:var(--af);font-weight:600;padding:9px 10px;text-align:center;border-bottom:1px solid var(--aline)}
 td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
 td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-right:1px solid var(--line)}
-.empty{min-height:220px;border:2px dashed var(--strong);border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.empty{min-height:120px;border:2px dashed var(--strong);border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--muted);margin-bottom:14px}
 .v{display:none}.v.on{display:block}
+.pager{display:flex;align-items:center;justify-content:center;gap:12px;margin:12px 0}
+.pager button{padding:8px 14px;font:500 14px inherit;font-family:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;color:var(--text)}
+.pager button:disabled{opacity:.4}
+.pager span{font-size:14px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;justify-content:center}
+.chip{padding:8px 12px;font:600 13px inherit;font-family:inherit;background:var(--ab);color:var(--af);border:1px solid var(--aline);border-radius:20px}
+.chip:active{opacity:.8}
+.search-row{display:flex;gap:8px;align-items:center}
+.search-row .in{flex:1}
+.dbbtn{flex-shrink:0;width:46px;height:46px;display:flex;align-items:center;justify-content:center;background:var(--card);border:2px solid var(--strong);border-radius:10px;font-size:20px}
+.dbbtn:active{background:var(--ab)}
+.hscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.title{text-align:center;font-size:18px;font-weight:700;margin:0 0 14px}
+.note{text-align:center;font-size:12px;color:var(--muted);margin:8px 0}
 </style>
 </head>
 <body>
 <div class="app">
 
+<!-- HOME -->
 <section id="home" class="v on">
 <button class="tile" data-go="p3">rapport</button>
 <button class="tile" data-go="p1">rapport qualité</button>
 <button class="tile" data-go="p2">extrusion</button>
-<p class="ver">pre-alpha 1.2</p>
+<p class="ver">pre-alpha 1.3 · demo</p>
 </section>
 
+<!-- P1 rapport qualité -->
 <section id="p1" class="v">
 <button class="back" data-go="home">رجوع</button>
 <div class="r2">
@@ -97,6 +119,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 </div>
 </section>
 
+<!-- P2 extrusion -->
 <section id="p2" class="v">
 <button class="back" data-go="home">رجوع</button>
 <label class="lb" for="q">بحث</label>
@@ -108,16 +131,125 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 </table></div>
 </section>
 
+<!-- P3 rapport -->
 <section id="p3" class="v">
 <button class="back" data-go="home">رجوع</button>
-<div class="empty">فارغة</div>
+<label class="lb">بحث 1</label>
+<input class="in" type="text" placeholder="قريباً" disabled>
+<label class="lb" style="margin-top:10px">بحث 2</label>
+<input class="in" type="text" placeholder="قريباً" disabled>
+<div class="sep"></div>
+<div class="r2">
+<button class="sq" data-go="carton">carton</button>
+<button class="sq" data-go="sachets">sachets</button>
+</div>
+<div class="sep"></div>
+<button class="tile" data-go="thermo" style="height:70px;font-size:18px">rapport thermoformage</button>
+</section>
+
+<!-- CARTON DB -->
+<section id="carton" class="v">
+<button class="back" data-go="p3">رجوع</button>
+<label class="lb" for="cq">recherche</label>
+<input id="cq" class="in" type="text" placeholder="ref أو dimensions" dir="ltr" autocomplete="off">
+<div class="pager">
+<button id="cprev" type="button">السابق</button>
+<span id="cinfo">1 / 1</span>
+<button id="cnext" type="button">التالي</button>
+</div>
+<div class="wrap"><table>
+<thead><tr><th>Référence</th><th>Dimensions (mm)</th></tr></thead>
+<tbody id="ctb"></tbody>
+</table></div>
+</section>
+
+<!-- SACHETS DB -->
+<section id="sachets" class="v">
+<button class="back" data-go="p3">رجوع</button>
+<label class="lb" for="sq">recherche</label>
+<input id="sq" class="in" type="text" placeholder="ref أو dimensions" dir="ltr" autocomplete="off">
+<div class="pager">
+<button id="sprev" type="button">السابق</button>
+<span id="sinfo">1 / 1</span>
+<button id="snext" type="button">التالي</button>
+</div>
+<div class="wrap"><table>
+<thead><tr><th>Référence</th><th>Dimensions (mm)</th></tr></thead>
+<tbody id="stb"></tbody>
+</table></div>
+</section>
+
+<!-- THERMOFORMAGE -->
+<section id="thermo" class="v">
+<button class="back" data-go="p3">رجوع</button>
+<p class="title">rapport thermoformage</p>
+<label class="lb" for="tref">recherche</label>
+<div class="search-row">
+<button class="dbbtn" id="tdb" type="button" title="قاعدة البيانات">🗄</button>
+<input id="tref" class="in" type="text" placeholder="HP018RS09C1P64" dir="ltr" autocomplete="off">
+</div>
+<div class="chips" id="tchips"></div>
+<div class="sep"></div>
+<!-- Row 1 RTL -->
+<div class="r3">
+<div><span class="lb">Colr</span><p class="bx" id="tcol">-</p></div>
+<div><span class="lb">Logo/ref</span><p class="bx" id="tlogo">-</p></div>
+<div><span class="lb" dir="ltr">mic x laize</span><p class="bx" id="tmic">-</p></div>
+</div>
+<div class="sep"></div>
+<!-- Row 2 -->
+<div><span class="lb">prod</span><p class="bx" id="tprod">-</p></div>
+<div class="sep"></div>
+<!-- Row 3 LTR -->
+<div class="r4" dir="ltr">
+<div><span class="lb">Poids phys</span><p class="bx" id="tpoids">-</p></div>
+<div><span class="lb">ref carton</span><p class="bx" id="tcarton">-</p></div>
+<div>
+<span class="lb">ref sachet</span>
+<p class="bx" id="tsachet">-</p>
+<p class="bx sm" id="tsachdim">-</p>
+</div>
+<div><span class="lb">NB unity/CRT</span><p class="bx" id="tnbcrt">-</p></div>
+</div>
+<div class="sep"></div>
+<!-- Row 4 LTR -->
+<div class="r4" dir="ltr">
+<div><span class="lb">NB sachet/CRT</span><p class="bx" id="tnbsach">-</p></div>
+<div><span class="lb">NB unit/sachet</span><p class="bx" id="tnbunits">-</p></div>
+<div><span class="lb">NB CRT/PLT</span><p class="bx" id="tnbplt">-</p></div>
+<div>
+<span class="lb">REF PLT</span>
+<p class="bx" id="tplt">-</p>
+<p class="bx sm" id="tpltdim">-</p>
+</div>
+</div>
+<p class="note" id="tsanity"></p>
+</section>
+
+<!-- FULL DB browser -->
+<section id="fulldb" class="v">
+<button class="back" data-go="thermo">رجوع</button>
+<label class="lb" for="fq">recherche</label>
+<input id="fq" class="in" type="text" placeholder="reference" dir="ltr" autocomplete="off">
+<div class="pager">
+<button id="fprev" type="button">السابق</button>
+<span id="finfo">1 / 1</span>
+<button id="fnext" type="button">التالي</button>
+</div>
+<div class="wrap hscroll"><table id="ftable">
+<thead><tr>
+<th>REFHPPAL</th><th>MODEL</th><th>BOBINE</th><th>NBR PAQUET</th><th>NBR UNITE PAQUE</th><th>NBR UNITE PAR CRT</th><th>Ref carton</th><th>Ref sachet</th><th>Ref palette</th><th>NBR CARTO N PAR</th>
+</tr></thead>
+<tbody id="ftb"></tbody>
+</table></div>
 </section>
 
 </div>
 <script>
-var PAGES=['home','p1','p2','p3'];
+/* ========== NAV ========== */
+var PAGES=['home','p1','p2','p3','carton','sachets','thermo','fulldb'];
 function show(id){
-PAGES.forEach(function(x){document.getElementById(x).className='v'+(x===id?' on':'');});
+PAGES.forEach(function(x){var el=document.getElementById(x);if(el)el.className='v'+(x===id?' on':'');});
 window.scrollTo(0,0);
 }
 document.querySelectorAll('[data-go]').forEach(function(b){
@@ -131,8 +263,8 @@ window.addEventListener('popstate',function(e){
 show(e.state&&e.state.p?e.state.p:'home');
 });
 
+/* ========== HELPERS ========== */
 function f2(n){return isFinite(n)?(Math.round(n*100)/100).toFixed(2):'-'}
-function f3(n){return isFinite(n)?String(Math.round(n*1000)/1000):'-'}
 function g(i){return document.getElementById(i)}
 function setSt(k){
 var s=g('st'),r=g('rw');
@@ -171,6 +303,7 @@ else setSt('ok');
 ['pct','w','u','c','ge','en'].forEach(function(i){g(i).addEventListener('input',calc)});
 calc();
 
+/* ========== EXTRUSION DATA ========== */
 var D=["BOBINE SF-PET 290 785 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 340 760 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 330 720 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 270 720 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 210 840 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 215 840 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 280 910 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 240 800 BLANC OPAQUE F3 SILICONE 2","BOBINE SF-PET 290 785 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 360 800 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 240 800 TRANSPARENT F3 SILICONE 3","BOBINE SF-PET 345 805 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 310 800 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 330 910 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 180 820 TRANSPARENT F3 SILICONE 2","BOBINE SF-PET 185 850 TRANSPARENT F3 SILICONE 2","BOBINE SF-PET 290 805 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 380 880 TRANSPARENT F1 SILICONE 2","BOBINE SF-PET 540 880 TRANSPARENT F1 SILICONE 2","BOBINE SF-PET 880 880 TRANSPARENT F1 SILICONE 2","BOBINE SF-PET 340 690 TRANSPARENT F1 SILICONE 2","BOBINE SF-PET 290 840 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 315 785 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 275 730 MARRON CLAIRE OPAQUE F3 SILICONE 2","BOBINE SF-PET 180 820 MARRON CLAIRE OPAQUE F3 SILICONE 2","BOBINE SF-PET 200 800 NOIR OPAQUE F3 SILICONE 2","BOBINE SF-PET 240 800 NOIR F3 SILICONE 3","BOBINE SF-PET 255 890 TRANSPARENT F2 SILICONE 2","BOBINE SF-PET 240 800 BLANC OPAQUE F3 SILICONE 2","BOBINE SF-PET 110 1000 BLANC OPAQUE F3 SILICONE"];
 function match(text,tokens){
 text=text.toLowerCase();
@@ -182,7 +315,7 @@ else if(text.indexOf(t)<0)return false;
 }
 return true;
 }
-function render(){
+function renderExt(){
 var q=g('q').value.toLowerCase().replace(/(\d)\s*[x\u00d7*]\s*(?=\d)/g,'$1 ');
 var tokens=q.split(/\s+/).filter(Boolean);
 var tb=g('tb');
@@ -204,8 +337,394 @@ tr.appendChild(td);tb.appendChild(tr);
 }
 g('cnt').textContent='عدد النتائج: '+n+' من '+D.length;
 }
-g('q').addEventListener('input',render);
-render();
+g('q').addEventListener('input',renderExt);
+renderExt();
+
+/* ========== CARTON DB ========== */
+var CARTON=[
+{ref:'CRT01',dim:'400*400*505'},
+{ref:'CRT02',dim:'415*310*175'},
+{ref:'CRT03',dim:'440*335*225'},
+{ref:'CRT04',dim:'440*330*210'},
+{ref:'CRT05',dim:'630*510*510'},
+{ref:'CRT06',dim:'550*440*410'},
+{ref:'CRT07',dim:'550*440*430'},
+{ref:'CRT08',dim:'570*565*510'},
+{ref:'CRT09',dim:'625*460*445'},
+{ref:'CRT10',dim:'640*550*500'},
+{ref:'CRT11',dim:'645*550*510'},
+{ref:'CRT12',dim:'710*580*480'},
+{ref:'CRT13',dim:'710*600*480'},
+{ref:'CRT14',dim:'640*550*500'},
+{ref:'CRT15',dim:'585*510*510'},
+{ref:'CRT16',dim:'550*440*205'},
+{ref:'CRT17',dim:'415*335*170'},
+{ref:'CRT18',dim:'550*440*410'},
+{ref:'CRT19',dim:'550*440*430'},
+{ref:'CRT20',dim:'500*310*280'},
+{ref:'CRT21',dim:'714*580*410'},
+{ref:'CRT22',dim:'400*440*345'},
+{ref:'CRT23',dim:'550*480*390'},
+{ref:'CRT24',dim:'550*400*750'},
+{ref:'CRT25B',dim:'550*510*535'},
+{ref:'CRT26B',dim:'770*539*535'},
+{ref:'CRT27B',dim:'570*270*535'},
+{ref:'CRT25',dim:'550*510*370'},
+{ref:'CRT26',dim:'740*520*340'},
+{ref:'CRT27',dim:'530*270*355'},
+{ref:'CRT28',dim:'625*360*458'},
+{ref:'CRT29',dim:'420*325*325'},
+{ref:'CRT30',dim:'730*580*410'},
+{ref:'CRT31',dim:'560*360*705'},
+{ref:'CRT32',dim:'660*540*535'},
+{ref:'CRT33',dim:'730*580*410'},
+{ref:'CRT34',dim:'400*400*550'},
+{ref:'CRT35',dim:'400*400*595'},
+{ref:'CRT36',dim:'370*400*630'},
+{ref:'CRT37',dim:'645*340*570'},
+{ref:'CRT38',dim:'410*400*690'},
+{ref:'CRT39',dim:'500*310*405'}
+];
+
+/* ========== SACHETS DB ========== */
+var SACHETS=[
+{ref:'SCH01',dim:'120*105*22'},
+{ref:'SCH02',dim:'140*115*20'},
+{ref:'SCH03',dim:'15*30'},
+{ref:'SCH04',dim:'15*60'},
+{ref:'SCH05',dim:'32*23.5'},
+{ref:'SCH06',dim:'32*23.5'},
+{ref:'SCH07',dim:'65*60'},
+{ref:'SCH08',dim:'40*90'},
+{ref:'SCH09',dim:'40*90'},
+{ref:'SCH10',dim:'40*90'},
+{ref:'SCH11',dim:'45*90'},
+{ref:'SCH12',dim:'45*90'},
+{ref:'SCH13',dim:'50*90'},
+{ref:'SCH14',dim:'60*80'},
+{ref:'SCH15',dim:'60*80'},
+{ref:'SCH16',dim:'60*80'},
+{ref:'SCH17',dim:'60*80'},
+{ref:'SCH18',dim:'60*80'},
+{ref:'SCH19',dim:'60*80'},
+{ref:'SCH20',dim:'60*80'},
+{ref:'SCH21',dim:'60*80'},
+{ref:'SCH22',dim:'60*80'},
+{ref:'SCH23',dim:'50*90'},
+{ref:'SCH24',dim:'50*90'},
+{ref:'SCH25',dim:'50*90'},
+{ref:'SCH26',dim:'50*90'},
+{ref:'SCH27',dim:'95*100'},
+{ref:'SCH28',dim:'35*80'},
+{ref:'SCH29',dim:'60*80'},
+{ref:'SCH30',dim:'42*70'},
+{ref:'SCH31',dim:'115*58'},
+{ref:'SCH32',dim:'42*50'},
+{ref:'SCH33',dim:'42*50'},
+{ref:'SCH34',dim:'42*50'},
+{ref:'SCH35',dim:'22*70'},
+{ref:'SCH36',dim:'60*80'},
+{ref:'SCH37',dim:'42*60'},
+{ref:'SCH38',dim:'42*70'},
+{ref:'SCH39',dim:'35*80'},
+{ref:'SCH40',dim:'50*90'},
+{ref:'SCH41',dim:'50*90'},
+{ref:'SCH42',dim:'65*80'},
+{ref:'SCH43',dim:'50*90'},
+{ref:'SCH44',dim:'485 MM'},
+{ref:'SCH45',dim:'370 MM'},
+{ref:'SCH46',dim:'28*40'},
+{ref:'SCH47',dim:'30*50'},
+{ref:'SCH48',dim:'515 MM'},
+{ref:'SCH49',dim:'420 MM'},
+{ref:'SCH50',dim:'34*100'},
+{ref:'SCH51',dim:'34*100'},
+{ref:'SCH52',dim:'33*60'},
+{ref:'SCH53',dim:'33*60'},
+{ref:'SCH54',dim:'50*90'},
+{ref:'SCH55',dim:'50*90'},
+{ref:'SCH56',dim:'50*90'},
+{ref:'SCH57',dim:'50*90'},
+{ref:'SCH58',dim:'420 MM'},
+{ref:'SCH59',dim:'16,5*35'},
+{ref:'SCH60',dim:'33*60'},
+{ref:'SCH61',dim:'30*45'},
+{ref:'SCH62',dim:'15*55'},
+{ref:'SCH63',dim:'35*80'},
+{ref:'SCH64',dim:'40*90'},
+{ref:'SCH65',dim:'40*90'},
+{ref:'SCH66',dim:'40*90'},
+{ref:'SCH67',dim:'45*90'},
+{ref:'SCH68',dim:'45*90'},
+{ref:'SCH69',dim:'60*80'},
+{ref:'SCH70',dim:'60*80'},
+{ref:'SCH71',dim:'60*80'},
+{ref:'SCH72',dim:'60*80'},
+{ref:'SCH73',dim:'60*80'},
+{ref:'SCH74',dim:'60*80'},
+{ref:'SCH75',dim:'60*80'},
+{ref:'SCH76',dim:'60*80'},
+{ref:'SCH77',dim:'515*260'},
+{ref:'SCH78',dim:'550*275'},
+{ref:'SCH79',dim:'550*275'},
+{ref:'SCH80',dim:'40*90'},
+{ref:'SCH81',dim:'45*90'},
+{ref:'SCH82',dim:'440*240'},
+{ref:'SCH83',dim:'65*90'},
+{ref:'SCH84',dim:'65*90'},
+{ref:'SCH85',dim:'100*116'},
+{ref:'SCH86',dim:'65*90'},
+{ref:'SCH87',dim:'65*90'}
+];
+
+/* ========== MAIN PRODUCT DB (page 1 of 14) ========== */
+var PROD=[
+{ref:'HP018RS09C1P64',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 ROSE CLAIRE TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 ROSE CLAIRE TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64},
+{ref:'HP018TR09C1P64',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 TRANSPARENT F2 SILICONE 2',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64},
+{ref:'HP018VR09C1P64',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 VERT CLAIRE TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 VERT CLAIRE TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64},
+{ref:'HP019BN7,5C1P64',model:'PLAT PLASTIQUE PET ECO - diametre 195 BLANC OPAQUE 7,5 GR',bobine:'BOBINE SF-PET 170 710 BLANC OPAQUE F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT04',refSachet:'SCH77',refPalette:'PL-002',nbrCartoPar:64},
+{ref:'HP020BN05C1P80',model:'PLAT PLASTIQUE PET PETIT MODEL - diametre 165 BLANC OPAQUE 05 GR',bobine:'BOBINE SF-PET 160 800 BLANC OPAQUE F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT02',refSachet:'SCH82',refPalette:'PL-002',nbrCartoPar:80},
+{ref:'HP021TR05C1P30',model:'GOBLET PLASTIQUE PET COMMUN - diametre 82 TRANSPARENT 05 GR',bobine:'BOBINE SF-PET 640 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:60,nbrUnitePaque:25,nbrUniteCrt:1500,refCarton:'CRT07',refSachet:'SCH45',refPalette:'PL-003',nbrCartoPar:30},
+{ref:'HP022TR05C1P30',model:'BARQUETTE PLASTIQUE PET COOKIES HAUT 3 COMPARTIMENTS CARRE TRANSPARENT 05 GR',bobine:'BOBINE SF-PET 215 785 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:1932,nbrUniteCrt:1932,refCarton:'CRT07',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30},
+{ref:'HP023TR3,5C1P80',model:'POT PLASTIQUE PET GLACES - diametre 80 TRANSPARENT 3,5 GR',bobine:'BOBINE SF-PET 440 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH31',refPalette:'PL-003',nbrCartoPar:80},
+{ref:'HP023TR3,8C1P30',model:'POT PLASTIQUE PET GLACES - diametre 80 TRANSPARENT 3,8 GR',bobine:'BOBINE SF-PET 480 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:60,nbrUnitePaque:25,nbrUniteCrt:1500,refCarton:'CRT07',refSachet:'SCH45',refPalette:'PL-003',nbrCartoPar:30},
+{ref:'HP024DR05C1P28',model:'POT PLASTIQUE PET GATEAU - diametre 80 DORE FONCE OPAQUE 05 GR',bobine:'BOBINE SF-PET 620 770 DORE FONCE OPAQUE F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1500,nbrUniteCrt:1500,refCarton:'CRT01',refSachet:'SCH27',refPalette:'PL-001',nbrCartoPar:28},
+{ref:'HP024TR03C1P80',model:'POT PLASTIQUE PET GATEAU - diametre 80 TRANSPARENT 03 GR',bobine:'BOBINE SF-PET 375 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH31',refPalette:'PL-002',nbrCartoPar:80},
+{ref:'HP024TR04C1P80',model:'POT PLASTIQUE PET GATEAU - diametre 80 TRANSPARENT 04 GR',bobine:'BOBINE SF-PET 400 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH07',refPalette:'PL-003',nbrCartoPar:80},
+{ref:'HP025ML06C1P30',model:'BARQUETTE PLASTIQUE PET COOKIES - 2 COMPARTIMENTS RECTANGLE MIEL TRANSPARENT 06 GR',bobine:'BOBINE SF-PET 275 785 MIEL TRANSPARENT F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:2100,nbrUniteCrt:2100,refCarton:'CRT07',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30},
+{ref:'HP026TR25C1P20',model:'BARQUETTE PLASTIQUE PET BISCUITS BIG 12 COMPARTIMENTS ROND TRANSPARENT 25 GR',bobine:'BOBINE SF-PET 340 750 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:600,nbrUniteCrt:600,refCarton:'CRT15',refSachet:'SCH02',refPalette:'PL-002',nbrCartoPar:20},
+{ref:'HP027TR18C1P24',model:'BARQUETTE PLASTIQUE PET PERFORE F 30 TRANSPARENT 18 GR',bobine:'BOBINE SF-PET 280 705 TRANSPARENT F2 SILICONE 2',nbrPaquet:4,nbrUnitePaque:150,nbrUniteCrt:600,refCarton:'CRT23',refSachet:'SCH40',refPalette:'PL-006',nbrCartoPar:24}
+];
+
+var PALETTE={
+'PL-001':'120*80',
+'PL-002':'120*100',
+'PL-003':'130*110',
+'PL-006':'110*130'
+};
+
+/* ========== GENERIC TABLE SEARCH + PAGER ========== */
+function dimNums(s){
+return (s||'').replace(/,/g,'.').match(/\d+(?:\.\d+)?/g)||[];
+}
+function searchRefDim(list,q){
+q=(q||'').trim().toLowerCase().replace(/×/g,'x').replace(/\*/g,'x');
+if(!q)return list.slice();
+var tokens=q.split(/[\s\-]+/).filter(Boolean);
+var nums=tokens.filter(function(t){return /^\d/.test(t);}).map(function(t){return t.replace(/,/g,'.');});
+var textParts=tokens.filter(function(t){return !/^\d/.test(t);});
+return list.filter(function(row){
+var ref=row.ref.toLowerCase();
+var dim=row.dim.toLowerCase();
+var dnums=dimNums(row.dim);
+/* text parts must appear in ref */
+for(var i=0;i<textParts.length;i++){
+if(ref.indexOf(textParts[i])<0)return false;
+}
+/* numbers: all must be in dim OR ref contains them */
+if(nums.length){
+var allInDim=nums.every(function(n){return dnums.some(function(d){return d===n||d.indexOf(n)===0;});});
+var allInRef=nums.every(function(n){return ref.indexOf(n)>=0;});
+/* single 1-2 digit: try ref first */
+if(nums.length===1 && /^\d{1,2}$/.test(nums[0])){
+if(ref.indexOf(nums[0])>=0)return true;
+return allInDim;
+}
+return allInDim||allInRef;
+}
+return true;
+});
+}
+
+function makePager(cfg){
+var page=0,filtered=[],PER=10;
+function draw(){
+var start=page*PER;
+var slice=filtered.slice(start,start+PER);
+var tb=g(cfg.tbody);
+tb.textContent='';
+if(!slice.length){
+var tr=document.createElement('tr');
+var td=document.createElement('td');
+td.colSpan=2;td.style.textAlign='center';td.style.direction='rtl';td.textContent='ما كاين حتى نتيجة';
+tr.appendChild(td);tb.appendChild(tr);
+}else{
+slice.forEach(function(r){
+var tr=document.createElement('tr');
+var a=document.createElement('td');a.textContent=r.ref;
+var b=document.createElement('td');b.textContent=r.dim;
+tr.appendChild(a);tr.appendChild(b);tb.appendChild(tr);
+});
+}
+var total=Math.max(1,Math.ceil(filtered.length/PER));
+g(cfg.info).textContent=(page+1)+' / '+total;
+g(cfg.prev).disabled=page<=0;
+g(cfg.next).disabled=page>=total-1;
+}
+function refresh(){
+filtered=searchRefDim(cfg.data,g(cfg.input).value);
+page=0;
+draw();
+}
+g(cfg.input).addEventListener('input',refresh);
+g(cfg.prev).addEventListener('click',function(){if(page>0){page--;draw();}});
+g(cfg.next).addEventListener('click',function(){if((page+1)*PER<filtered.length){page++;draw();}});
+refresh();
+return {refresh:refresh};
+}
+makePager({data:CARTON,input:'cq',tbody:'ctb',prev:'cprev',next:'cnext',info:'cinfo'});
+makePager({data:SACHETS,input:'sq',tbody:'stb',prev:'sprev',next:'snext',info:'sinfo'});
+
+/* ========== THERMOFORMAGE ========== */
+function extractColor(ref){
+/* HP + 3 digits + color code (letters) + ... */
+var m=ref.match(/^HP\d{3}([A-Z]{2})/i);
+return m?m[1].toUpperCase():'-';
+}
+function extractMicLaize(bobine){
+var m=(bobine||'').match(/SF-PET\s+(\d+(?:[.,]\d+)?)\s+(\d+(?:[.,]\d+)?)/i);
+if(m)return m[1]+' x '+m[2];
+return '-';
+}
+function extractPoids(model,ref){
+var m=(model||'').match(/(\d+(?:[.,]\d+)?)\s*GR/i);
+if(m)return m[1].replace(',','.')+' GR';
+m=ref.match(/(\d+(?:[.,]\d+)?)C1/i);
+if(m)return m[1].replace(',','.')+' GR';
+return '-';
+}
+function findSachetDim(ref){
+if(!ref||ref==='-')return null;
+var r=SACHETS.find(function(s){return s.ref===ref;});
+return r?r.dim:null;
+}
+function clearThermo(){
+['tcol','tlogo','tmic','tprod','tpoids','tcarton','tsachet','tsachdim','tnbcrt','tnbsach','tnbunits','tnbplt','tplt','tpltdim'].forEach(function(id){
+var el=g(id);el.textContent='-';
+el.classList.add('dim');
+});
+g('tsanity').textContent='';
+g('tchips').textContent='';
+}
+function fillThermo(row){
+g('tcol').textContent=extractColor(row.ref);
+g('tcol').classList.remove('dim');
+var logo='HP/'+row.ref.replace(/^HP/i,'');
+g('tlogo').textContent=logo;
+g('tlogo').classList.remove('dim');
+g('tmic').textContent=extractMicLaize(row.bobine);
+g('tmic').classList.remove('dim');
+g('tprod').textContent=row.model;
+g('tprod').classList.remove('dim');
+g('tpoids').textContent=extractPoids(row.model,row.ref);
+g('tpoids').classList.remove('dim');
+g('tcarton').textContent=row.refCarton||'-';
+g('tcarton').classList.remove('dim');
+g('tnbcrt').textContent=row.nbrUniteCrt!=null?String(row.nbrUniteCrt):'-';
+g('tnbcrt').classList.remove('dim');
+/* sachet */
+var sref=row.refSachet||'';
+g('tsachet').textContent=sref||'-';
+var sdim=findSachetDim(sref);
+if(sref&&sdim){
+g('tsachet').classList.remove('dim');
+g('tsachdim').textContent=sdim;
+g('tsachdim').classList.remove('dim');
+}else{
+g('tsachet').classList.add('dim');
+g('tsachdim').textContent='-';
+g('tsachdim').classList.add('dim');
+}
+/* row 4 */
+g('tnbsach').textContent=row.nbrUnitePaque!=null?String(row.nbrUnitePaque):'-';
+g('tnbsach').classList.remove('dim');
+g('tnbunits').textContent=row.nbrPaquet!=null?String(row.nbrPaquet):'-';
+g('tnbunits').classList.remove('dim');
+g('tnbplt').textContent=row.nbrCartoPar!=null?String(row.nbrCartoPar):'-';
+g('tnbplt').classList.remove('dim');
+g('tplt').textContent=row.refPalette||'-';
+g('tplt').classList.remove('dim');
+var pdim=PALETTE[row.refPalette]||'-';
+g('tpltdim').textContent=pdim;
+if(pdim!=='-')g('tpltdim').classList.remove('dim');else g('tpltdim').classList.add('dim');
+/* sanity */
+var a=row.nbrPaquet,b=row.nbrUnitePaque,c=row.nbrUniteCrt;
+if(a!=null&&b!=null&&c!=null){
+var ok=(a*b===c);
+g('tsanity').textContent=ok?('✓ '+a+' × '+b+' = '+c):('⚠ '+a+' × '+b+' ≠ '+c);
+g('tsanity').style.color=ok?'var(--okf)':'var(--erf)';
+}else g('tsanity').textContent='';
+}
+function searchThermo(){
+var q=g('tref').value.trim().toUpperCase().replace(/\s+/g,'');
+g('tchips').textContent='';
+if(!q){clearThermo();return;}
+var q2=q.replace(/^HP/i,'');
+var hits=PROD.filter(function(p){
+var r=p.ref.toUpperCase();
+return r.indexOf(q)===0||r.replace(/^HP/,'').indexOf(q2)===0;
+});
+if(hits.length===0){clearThermo();return;}
+if(hits.length===1){fillThermo(hits[0]);return;}
+/* multiple → chips */
+clearThermo();
+hits.forEach(function(h){
+var b=document.createElement('button');
+b.type='button';b.className='chip';b.textContent=h.ref;
+b.addEventListener('click',function(){
+g('tref').value=h.ref;
+fillThermo(h);
+g('tchips').textContent='';
+});
+g('tchips').appendChild(b);
+});
+}
+g('tref').addEventListener('input',searchThermo);
+g('tdb').addEventListener('click',function(){
+show('fulldb');
+try{history.pushState({p:'fulldb'},'');}catch(e){}
+renderFullDb();
+});
+
+/* ========== FULL DB ========== */
+var fpage=0,ffiltered=[];
+function renderFullDb(){
+var q=g('fq').value.trim().toUpperCase();
+ffiltered=PROD.filter(function(p){
+if(!q)return true;
+return p.ref.toUpperCase().indexOf(q)>=0;
+});
+fpage=0;
+drawFull();
+}
+function drawFull(){
+var PER=10;
+var start=fpage*PER;
+var slice=ffiltered.slice(start,start+PER);
+var tb=g('ftb');
+tb.textContent='';
+slice.forEach(function(r){
+var tr=document.createElement('tr');
+[r.ref,r.model,r.bobine,r.nbrPaquet,r.nbrUnitePaque,r.nbrUniteCrt,r.refCarton,r.refSachet,r.refPalette,r.nbrCartoPar].forEach(function(v){
+var td=document.createElement('td');td.textContent=v!=null?String(v):'';
+tr.appendChild(td);
+});
+tb.appendChild(tr);
+});
+if(!slice.length){
+var tr=document.createElement('tr');
+var td=document.createElement('td');td.colSpan=10;td.style.textAlign='center';td.style.direction='rtl';td.textContent='ما كاين حتى نتيجة';
+tr.appendChild(td);tb.appendChild(tr);
+}
+var total=Math.max(1,Math.ceil(ffiltered.length/PER));
+g('finfo').textContent=(fpage+1)+' / '+total;
+g('fprev').disabled=fpage<=0;
+g('fnext').disabled=fpage>=total-1;
+}
+g('fq').addEventListener('input',renderFullDb);
+g('fprev').addEventListener('click',function(){if(fpage>0){fpage--;drawFull();}});
+g('fnext').addEventListener('click',function(){if((fpage+1)*10<ffiltered.length){fpage++;drawFull();}});
+
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){});});}
 </script>
 </body>
