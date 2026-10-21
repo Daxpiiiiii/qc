@@ -71,7 +71,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <button class="tile" data-go="p3">rapport</button>
 <button class="tile" data-go="p1">rapport qualité</button>
 <button class="tile" data-go="p2">extrusion</button>
-<p class="ver">Alpha V1.2</p>
+<p class="ver">Alpha V1.3</p>
 </section>
 
 <!-- P1 rapport qualité -->
@@ -115,6 +115,11 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <div class="r2">
 <div><span class="lb" dir="ltr">RO+</span><p class="bx" id="mx">-</p></div>
 <div><span class="lb" dir="ltr">RO−</span><p class="bx" id="mn">-</p></div>
+</div>
+<div class="sep"></div>
+<div class="r2">
+<div><span class="lb" dir="ltr">RO]</span><p class="bx" id="romx">-</p></div>
+<div><span class="lb" dir="ltr">RO[</span><p class="bx" id="romn">-</p></div>
 </div>
 <div class="sep"></div>
 <div class="r3">
@@ -328,6 +333,8 @@ var d=w*p/100,mn=w-d,mx=w+d;
 var res=(en!==0)?ge/en:NaN;
 g('mn').textContent=f2(mn);
 g('mx').textContent=f2(mx);
+g('romx').textContent=f2(mx*u/1000+c);
+g('romn').textContent=f2(mn*u/1000+c);
 g('r').textContent=f2(w*u/1000+c);
 g('rmn').textContent=f2(res*(1-p/100)*u/1000+c);
 g('rmx').textContent=f2(res*(1+p/100)*u/1000+c);
