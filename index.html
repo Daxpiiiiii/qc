@@ -83,7 +83,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <div class="sep"></div>
 <div class="r2">
 <div><label class="lb" for="pct">النسبة المئوية</label>
-<select id="pct" class="in" dir="ltr" style="font-size:15px;opacity:1;-webkit-appearance:none;appearance:none;text-align:center" disabled>
+<select id="pct" class="in" dir="ltr" style="font-size:15px">
 <option value="4">0-10 → 4%</option>
 <option value="3">10-15 → 3%</option>
 <option value="2.5">15-20 → 2.5%</option>
@@ -284,7 +284,7 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 </div>
 <div class="wrap hscroll"><table id="ftable">
 <thead><tr>
-<th>REFHPPAL</th><th>REF INSERT</th><th>MODEL</th><th>BOBINE</th><th>NBR PAQUET</th><th>NBR UNITE PAQUE</th><th>NBR UNITE PAR CRT</th><th>Ref carton</th><th>Ref sachet</th><th>Ref palette</th><th>NBR CARTO N PAR</th><th>NBR EMPREINTE</th>
+<th>REFHPPAL</th><th>REF INSERT</th><th>MODEL</th><th>BOBINE</th><th>NBR PAQUET</th><th>NBR UNITE PAQUE</th><th>NBR UNITE PAR CRT</th><th>Ref carton</th><th>Ref sachet</th><th>Ref palette</th><th>NBR CARTO N PAR</th><th>NBR EMPREINT</th>
 </tr></thead>
 <tbody id="ftb"></tbody>
 </table></div>
@@ -350,22 +350,7 @@ else if(res<mn)setSt('low');
 else if(res>mx)setSt('high');
 else setSt('ok');
 }
-function pctFor(w){
-if(!isFinite(w)||w<=0)return null;
-if(w<=10)return '4';
-if(w<=15)return '3';
-if(w<=20)return '2.5';
-if(w<=25)return '2';
-if(w<=35)return '1.5';
-if(w<=50)return '1';
-return '0.5';
-}
-function autoPct(){
-var v=pctFor(parseFloat(g('w').value));
-if(v)g('pct').value=v;
-}
-['w','u','c','ge','en'].forEach(function(i){g(i).addEventListener('input',function(){if(i==='w')autoPct();calc();});});
-autoPct();
+['pct','w','u','c','ge','en'].forEach(function(i){g(i).addEventListener('input',calc)});
 calc();
 
 /* ========== EXTRUSION DATA ========== */
@@ -542,69 +527,99 @@ var SACHETS=[
 {ref:'SCH87',dim:'65*90'}
 ];
 
-/* ========== MAIN PRODUCT DB (page 1 of 14) ========== */
+/* ========== MAIN PRODUCT DB ========== */
 var PROD=[
-{ref:'HP001BN08C1P20',insert:'M01-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 150 CC BLANC OPAQUE 08 GR',bobine:'BOBINE SF-PET 225 820 BLANC OPAQUE F3 SILICONE 2',nbrPaquet:12,nbrUnitePaque:100,nbrUniteCrt:1200,refCarton:'CRT10',refSachet:'SCH08',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:12},
-{ref:'HP001TR07C1P20',insert:'M01-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 150 CC TRANSPARENT 07 GR Expo',bobine:'BOBINE SF-PET 200 820 TRANSPARENT F2 SILICONE 2',nbrPaquet:10,nbrUnitePaque:100,nbrUniteCrt:1000,refCarton:'CRT24',refSachet:'SCH80',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreinte:12},
-{ref:'HP001TR08C1P20',insert:'M01-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 150 CC TRANSPARENT 08 GR',bobine:'BOBINE SF-PET 225 820 TRANSPARENT F2 SILICONE 2',nbrPaquet:12,nbrUnitePaque:100,nbrUniteCrt:1200,refCarton:'CRT10',refSachet:'SCH08',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:12},
-{ref:'HP002TR08C1P20',insert:'M01-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 250 CC TRANSPARENT 08 GR Expo',bobine:'BOBINE SF-PET 225 820 TRANSPARENT F2 SILICONE 2',nbrPaquet:10,nbrUnitePaque:100,nbrUniteCrt:1000,refCarton:'CRT24',refSachet:'SCH80',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreinte:12},
-{ref:'HP002TR8,5C1P20',insert:'M01-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 250 CC TRANSPARENT 8,5 GR',bobine:'BOBINE SF-PET 240 820 TRANSPARENT F2 SILICONE 2',nbrPaquet:12,nbrUnitePaque:100,nbrUniteCrt:1200,refCarton:'CRT10',refSachet:'SCH09',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:12},
-{ref:'HP003TR11C1P20',insert:'M01-I3',model:'BARQUETTE PLASTIQUE PET RAYEE 375 CC TRANSPARENT 11 GR',bobine:'BOBINE SF-PET 310 820 TRANSPARENT F2 SILICONE 2',nbrPaquet:12,nbrUnitePaque:100,nbrUniteCrt:1200,refCarton:'CRT10',refSachet:'SCH10',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:12},
-{ref:'HP003TR9C1P20',insert:'M01-I3',model:'BARQUETTE PLASTIQUE PET RAYEE 375 CC TRANSPARENT 9 GR Expo',bobine:'BOBINE SF-PET 260 820 TRANSPARENT F2 SILICONE 2',nbrPaquet:10,nbrUnitePaque:100,nbrUniteCrt:1000,refCarton:'CRT24',refSachet:'SCH80',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreinte:12},
-{ref:'HP004TR12C1P20',insert:'M02-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 500 CC TRANSPARENT 12 GR Expo',bobine:'BOBINE SF-PET 280 800 TRANSPARENT F2 SILICONE 2',nbrPaquet:9,nbrUnitePaque:100,nbrUniteCrt:900,refCarton:'CRT24',refSachet:'SCH81',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreinte:10},
-{ref:'HP004TR13C1P20',insert:'M02-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 500 CC TRANSPARENT 13 GR',bobine:'BOBINE SF-PET 310 800 TRANSPARENT F2 SILICONE 2',nbrPaquet:10,nbrUnitePaque:100,nbrUniteCrt:1000,refCarton:'CRT14',refSachet:'SCH11',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:10},
-{ref:'HP005TR12C1P20',insert:'M02-I1L',model:'BARQUETTE PLASTIQUE PET RAYEE 500 CC L TRANSPARENT 12 GR Expo',bobine:'BOBINE SF-PET 280 800 TRANSPARENT F2 SILICONE 2',nbrPaquet:9,nbrUnitePaque:100,nbrUniteCrt:900,refCarton:'CRT24',refSachet:'SCH81',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreinte:10},
-{ref:'HP005TR13C1P20',insert:'M02-I1L',model:'BARQUETTE PLASTIQUE PET RAYEE 500 CC L TRANSPARENT 13 GR',bobine:'BOBINE SF-PET 310 800 TRANSPARENT F2 SILICONE 2',nbrPaquet:10,nbrUnitePaque:100,nbrUniteCrt:1000,refCarton:'CRT14',refSachet:'SCH12',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:10},
-{ref:'HP006TR17C1P20',insert:'M03-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 750 CC TRANSPARENT 17 GR Expo',bobine:'BOBINE SF-PET 260 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT24',refSachet:'SCH13',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreinte:8},
-{ref:'HP006TR18,5C1P20',insert:'M03-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 750 CC TRANSPARENT 18,5 GR',bobine:'BOBINE SF-PET 280 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT08',refSachet:'SCH23',refPalette:'PL-004',nbrCartoPar:20,nbrEmpreinte:8},
-{ref:'HP007TR17C1P20',insert:'M03-I1L',model:'BARQUETTE PLASTIQUE PET RAYEE 750 CC L TRANSPARENT 17 GR Expo',bobine:'BOBINE SF-PET 260 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT24',refSachet:'SCH13',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreinte:8},
-{ref:'HP007TR18,5C1P20',insert:'M03-I1L',model:'BARQUETTE PLASTIQUE PET RAYEE 750 CC L TRANSPARENT 18,5 GR',bobine:'BOBINE SF-PET 280 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT08',refSachet:'SCH24',refPalette:'PL-004',nbrCartoPar:20,nbrEmpreinte:8},
-{ref:'HP008TR20C1P20',insert:'M03-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 1000 CC TRANSPARENT 20 GR Expo',bobine:'BOBINE SF-PET 310 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT24',refSachet:'SCH13',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreinte:8},
-{ref:'HP008TR22C1P20',insert:'M03-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 1000 CC TRANSPARENT 22 GR',bobine:'BOBINE SF-PET 330 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT08',refSachet:'SCH25',refPalette:'PL-004',nbrCartoPar:20,nbrEmpreinte:8},
-{ref:'HP009TR20C1P20',insert:'M03-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1000 CC L TRANSPARENT 20 GR Expo',bobine:'BOBINE SF-PET 310 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT24',refSachet:'SCH13',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreinte:8},
-{ref:'HP009TR22C1P20',insert:'M03-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1000 CC L TRANSPARENT 22 GR',bobine:'BOBINE SF-PET 330 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT08',refSachet:'SCH26',refPalette:'PL-004',nbrCartoPar:20,nbrEmpreinte:8},
-{ref:'HP010TR29,5C2P20',insert:'M51-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 1250 CC TRANSPARENT 29,5 GR',bobine:'BOBINE SF-PET 275 805 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH21',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:4},
-{ref:'HP010TR29C2P24',insert:'M51-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 1250 CC TRANSPARENT 29 GR EXPO',bobine:'BOBINE SF-PET 270 805 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreinte:4},
-{ref:'HP011TR29,5C3P20',insert:'M51-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1250 CC L TRANSPARENT 29,5 GR',bobine:'BOBINE SF-PET 275 805 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH14',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:4},
-{ref:'HP011TR29C2P24',insert:'M51-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1250 CC L TRANSPARENT 29 GR EXPO',bobine:'BOBINE SF-PET 270 805 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreinte:4},
-{ref:'HP012TR31,5C2P20',insert:'M51-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 1500 CC TRANSPARENT 31,5 GR',bobine:'BOBINE SF-PET 290 805 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH15',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:4},
-{ref:'HP012TR31C2P24',insert:'M51-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 1500 CC TRANSPARENT 31 GR EXPO',bobine:'BOBINE SF-PET 285 805 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreinte:4},
-{ref:'HP013TR31,5C2P20',insert:'M51-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1500 CC L TRANSPARENT 31,5 GR',bobine:'BOBINE SF-PET 290 805 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH16',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:4},
-{ref:'HP013TR31C2P24',insert:'M51-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1500 CC L TRANSPARENT 31 GR EXPO',bobine:'BOBINE SF-PET 285 805 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreinte:4},
-{ref:'HP014TR33C2P24',insert:'M51-I3',model:'BARQUETTE PLASTIQUE PET RAYEE 1750 CC TRANSPARENT 33 GR EXPO',bobine:'BOBINE SF-PET 300 805 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreinte:4},
-{ref:'HP014TR36,5C2P20',insert:'M51-I3',model:'BARQUETTE PLASTIQUE PET RAYEE 1750 CC TRANSPARENT 36,5 GR',bobine:'BOBINE SF-PET 335 805 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT13',refSachet:'SCH17',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:4},
-{ref:'HP015TR33C2P24',insert:'M51-I3L',model:'BARQUETTE PLASTIQUE PET RAYEE 1750 CC L TRANSPARENT 33 GR EXPO',bobine:'BOBINE SF-PET 300 805 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreinte:4},
-{ref:'HP018RS09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 ROSE CLAIRE TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 ROSE CLAIRE TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64},
-{ref:'HP018TR09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 TRANSPARENT F2 SILICONE 2',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64},
-{ref:'HP018VR09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 VERT CLAIRE TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 VERT CLAIRE TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64},
-{ref:'HP019BN7,5C1P64',insert:'M06-I1',model:'PLAT PLASTIQUE PET ECO - diametre 195 BLANC OPAQUE 7,5 GR',bobine:'BOBINE SF-PET 170 710 BLANC OPAQUE F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT04',refSachet:'SCH77',refPalette:'PL-002',nbrCartoPar:64},
-{ref:'HP020BN05C1P80',insert:'M07-I1',model:'PLAT PLASTIQUE PET PETIT MODEL - diametre 165 BLANC OPAQUE 05 GR',bobine:'BOBINE SF-PET 160 800 BLANC OPAQUE F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT02',refSachet:'SCH82',refPalette:'PL-002',nbrCartoPar:80},
-{ref:'HP021TR05C1P30',insert:'M08-I1',model:'GOBLET PLASTIQUE PET COMMUN - diametre 82 TRANSPARENT 05 GR',bobine:'BOBINE SF-PET 640 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:60,nbrUnitePaque:25,nbrUniteCrt:1500,refCarton:'CRT07',refSachet:'SCH45',refPalette:'PL-003',nbrCartoPar:30},
-{ref:'HP022TR05C1P30',insert:'M09-I4',model:'BARQUETTE PLASTIQUE PET COOKIES HAUT 3 COMPARTIMENTS CARRE TRANSPARENT 05 GR',bobine:'BOBINE SF-PET 215 785 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:1932,nbrUniteCrt:1932,refCarton:'CRT07',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30},
-{ref:'HP023TR3,5C1P80',insert:'M08-I2',model:'POT PLASTIQUE PET GLACES - diametre 80 TRANSPARENT 3,5 GR',bobine:'BOBINE SF-PET 440 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH31',refPalette:'PL-003',nbrCartoPar:80},
-{ref:'HP023TR3,8C1P30',insert:'M08-I2',model:'POT PLASTIQUE PET GLACES - diametre 80 TRANSPARENT 3,8 GR',bobine:'BOBINE SF-PET 480 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:60,nbrUnitePaque:25,nbrUniteCrt:1500,refCarton:'CRT07',refSachet:'SCH45',refPalette:'PL-003',nbrCartoPar:30},
-{ref:'HP024DR05C1P28',insert:'M08-I3',model:'POT PLASTIQUE PET GATEAU - diametre 80 DORE FONCE OPAQUE 05 GR',bobine:'BOBINE SF-PET 620 770 DORE FONCE OPAQUE F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1500,nbrUniteCrt:1500,refCarton:'CRT01',refSachet:'SCH27',refPalette:'PL-001',nbrCartoPar:28},
-{ref:'HP024TR03C1P80',insert:'M08-I3',model:'POT PLASTIQUE PET GATEAU - diametre 80 TRANSPARENT 03 GR',bobine:'BOBINE SF-PET 375 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH31',refPalette:'PL-002',nbrCartoPar:80},
-{ref:'HP024TR04C1P80',insert:'M08-I3',model:'POT PLASTIQUE PET GATEAU - diametre 80 TRANSPARENT 04 GR',bobine:'BOBINE SF-PET 400 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH07',refPalette:'PL-003',nbrCartoPar:80},
-{ref:'HP025ML06C1P30',insert:'M09-I3',model:'BARQUETTE PLASTIQUE PET COOKIES - 2 COMPARTIMENTS RECTANGLE MIEL TRANSPARENT 06 GR',bobine:'BOBINE SF-PET 275 785 MIEL TRANSPARENT F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:2100,nbrUniteCrt:2100,refCarton:'CRT07',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30},
-{ref:'HP026TR25C1P20',insert:'M13-I2',model:'BARQUETTE PLASTIQUE PET BISCUITS BIG 12 COMPARTIMENTS ROND TRANSPARENT 25 GR',bobine:'BOBINE SF-PET 340 750 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:600,nbrUniteCrt:600,refCarton:'CRT15',refSachet:'SCH02',refPalette:'PL-002',nbrCartoPar:20},
-{ref:'HP027TR18C1P24',insert:'M38-I1',model:'BARQUETTE PLASTIQUE PET PERFORE F 30 TRANSPARENT 18 GR',bobine:'BOBINE SF-PET 280 705 TRANSPARENT F2 SILICONE 2',nbrPaquet:4,nbrUnitePaque:150,nbrUniteCrt:600,refCarton:'CRT23',refSachet:'SCH40',refPalette:'PL-006',nbrCartoPar:24},
-{ref:'HP062TR17C1P30',insert:'M12-I1',model:'BARQUETTE PLASTIQUE PET BISCUITS BAS 10 COMPARTIMENTS RECTANGLE TRANSPARENT 17 GR',bobine:'BOBINE SF-PET 305 785 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:480,nbrUniteCrt:480,refCarton:'CRT06',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30,nbrEmpreinte:6},
-{ref:'HP063TR06C1P60',insert:'M20-I1',model:'BARQUETTE PLASTIQUE PET CIGARE-12 COMPARTIMENTS TRANSPARENT 06 GR',bobine:'BOBINE SF-PET 230 800 TRANSPARENT F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1350,nbrUniteCrt:1350,refCarton:'CRT16',refSachet:'SCH31',refPalette:'PL-003',nbrCartoPar:60,nbrEmpreinte:14},
-{ref:'HP063TR06C2P54',insert:'M20-I1',model:'BARQUETTE PLASTIQUE PET CIGARE-12 COMPARTIMENTS TRANSPARENT 06 GR',bobine:'BOBINE SF-PET 230 800 TRANSPARENT F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1350,nbrUniteCrt:1350,refCarton:'CRT16',refSachet:'SCH31',refPalette:'PL-003',nbrCartoPar:54,nbrEmpreinte:14},
-{ref:'HP064TR4,5C1P60',insert:'M21-I1',model:'BARQUETTE PLASTIQUE PET CIGARE-7 COMPARTIMENTS TRANSPARENT 4,5 GR',bobine:'BOBINE SF-PET 240 800 TRANSPARENT F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1500,nbrUniteCrt:1500,refCarton:'CRT16',refSachet:'SCH31',refPalette:'PL-003',nbrCartoPar:60,nbrEmpreinte:21},
-{ref:'HP065TR03C1P60',insert:'M22-I1',model:'BARQUETTE PLASTIQUE PET CIGARE MINI 4 COMPARTIMENTS TRANSPARENT 03 GR',bobine:'BOBINE SF-PET 200 790 TRANSPARENT F3 SILICONE 2',nbrPaquet:0,nbrUnitePaque:0,nbrUniteCrt:0,refCarton:'CRT16',refSachet:'SCH31',refPalette:'PL-003',nbrCartoPar:60,nbrEmpreinte:30},
-{ref:'HP067MR2,3C1P30',insert:'M24-I1',model:'BARQUETTE PLASTIQUE PET BISCUITS 2 MARRON CLAIRE OPAQUE 2,3 GR',bobine:'BOBINE SF-PET 180 820 MARRON CLAIRE OPAQUE F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:6000,nbrUniteCrt:6000,refCarton:'CRT06',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30,nbrEmpreinte:27},
-{ref:'HP067NR03C1P60',insert:'M24-I1',model:'BARQUETTE PLASTIQUE PET BISCUITS 2 NOIR OPAQUE 03 GR KALBLOUZ',bobine:'BOBINE SF-PET 245 820 NOIR OPAQUE F3 SILICONE 2',nbrPaquet:12,nbrUnitePaque:240,nbrUniteCrt:2880,refCarton:'CRT16',refSachet:'SCH35',refPalette:'PL-003',nbrCartoPar:60,nbrEmpreinte:27},
-{ref:'HP068NR14,5C2P30',insert:'M25-I1',model:'BARQUETTE PLASTIQUE PET PACK FAMILY 50 NOIR OPAQUE 14,5 GR',bobine:'BOBINE SF-PET 305 800 NOIR OPAQUE F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1080,nbrUniteCrt:1080,refCarton:'CRT06',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30,nbrEmpreinte:6},
-{ref:'HP068TR14,5C1P30',insert:'M25-I1',model:'BARQUETTE PLASTIQUE PET PACK FAMILY 50 TRANSPARENT 14,5 GR',bobine:'BOBINE SF-PET 290 655 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:1080,nbrUniteCrt:1080,refCarton:'CRT06',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30,nbrEmpreinte:6},
-{ref:'HP069MR07C1P60',insert:'M26-I1',model:'BARQUETTE PLASTIQUE PET CHOCO FOND RAYE 18 COMPARTIMENTS CARRE MARRON CLAIRE OPAQUE 07 GR',bobine:'BOBINE SF-PET 275 730 MARRON CLAIRE OPAQUE F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1000,nbrUniteCrt:1000,refCarton:'CRT16',refSachet:'SCH31',refPalette:'PL-003',nbrCartoPar:60,nbrEmpreinte:12},
-{ref:'HP070TR57C1P20',insert:'M27-I1',model:'BARQUETTE PLASTIQUE PET DATTE 2 KG TRANSPARENT 57 GR',bobine:'BOBINE SF-PET 340 690 TRANSPARENT F1 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT33',refSachet:'SCH42',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:2},
-{ref:'HP072TR06C1P18',insert:'M28-I1',model:'BARQUETTE PLASTIQUE PET ROULE SMALL TRANSPARENT 06 GR',bobine:'BOBINE SF-PET 330 790 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:1710,nbrUniteCrt:1710,refCarton:'CRT38',refSachet:'SCH85',refPalette:'PL-001',nbrCartoPar:18,nbrEmpreinte:16},
-{ref:'HP073MR07C1P60',insert:'M26-I2',model:'BARQUETTE PLASTIQUE PET CHOCO BARE 8 COMPARTIMENTS RECTANGLE MARRON CLAIRE OPAQUE 07 GR',bobine:'BOBINE SF-PET 275 730 MARRON CLAIRE OPAQUE F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:750,nbrUniteCrt:750,refCarton:'CRT16',refSachet:'SCH31',refPalette:'PL-003',nbrCartoPar:60,nbrEmpreinte:12},
-{ref:'HP076TR10,5C1P28',insert:'M19-I4',model:'BARQUETTE PLASTIQUE PET MADELEINE HAUT 8 COMPARTIMENTS CARRE TRANSPARENT 10,5 GR',bobine:'BOBINE SF-PET 240 800 TRANSPARENT F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1560,nbrUniteCrt:1560,refCarton:'CRT01',refSachet:'SCH27',refPalette:'PL-003',nbrCartoPar:28,nbrEmpreinte:10},
-{ref:'HP140TR40C1P20',insert:'M47-I3',model:'BARQUETTE PLASTIQUE PET PATISSERIE 1250 GR TRANSPARENT 40 GR',bobine:'BOBINE SF-PET 260 500 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT33',refSachet:'SCH86',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:4},
-{ref:'HP141TR50C1P20',insert:'M47-I1',model:'BARQUETTE PLASTIQUE PET PATISSERIE 2000 GR TRANSPARENT 50 GR',bobine:'BOBINE SF-PET 320 900 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT33',refSachet:'SCH83',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreinte:4}
+{ref:'HP0010N08C1P20',insert:'M01-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 150 CC BLANC OPAQUE 08 GR',bobine:'BOBINE SF-PET 225 B20 BLANC OPAQUE F3 SILICONE 2',nbrPaquet:12,nbrUnitePaque:100,nbrUniteCrt:1200,refCarton:'CRT10',refSachet:'SCH08',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:12,giz:40,m800:40,m9001:40,m9002:40,sq:48},
+{ref:'HP0001TR07C1P20',insert:'M01-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 150 CC TRANSPARENT 07 GR Expo',bobine:'BOBINE SF-PET 200 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:10,nbrUnitePaque:100,nbrUniteCrt:1000,refCarton:'CRT24',refSachet:'SCH08',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreint:12,giz:40,m800:40,m9001:40,m9002:40,sq:48},
+{ref:'HP0001TR08C1P20',insert:'M01-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 150 CC TRANSPARENT 08 GR',bobine:'BOBINE SF-PET 225 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:12,nbrUnitePaque:100,nbrUniteCrt:1200,refCarton:'CRT10',refSachet:'SCH08',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:12,giz:40,m800:40,m9001:40,m9002:40,sq:48},
+{ref:'HP0002TR08C1P20',insert:'M01-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 250 CC TRANSPARENT 08 GR Expo',bobine:'BOBINE SF-PET 225 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:10,nbrUnitePaque:100,nbrUniteCrt:1000,refCarton:'CRT24',refSachet:'SCH08',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreint:12,giz:40,m800:40,m9001:40,m9002:40,sq:48},
+{ref:'HP0002TR8_5C1P20',insert:'M01-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 250 CC TRANSPARENT 8,5 GR',bobine:'BOBINE SF-PET 240 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:12,nbrUnitePaque:100,nbrUniteCrt:1200,refCarton:'CRT10',refSachet:'SCH09',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:12,giz:40,m800:40,m9001:40,m9002:40,sq:48},
+{ref:'HP0002TR8_5C2P20',insert:'M01-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 250 CC TRANSPARENT 8,5 GR Multi-usage',bobine:'BOBINE SF-PET 240 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:80,nbrUnitePaque:10,nbrUniteCrt:800,refCarton:'CRT10',refSachet:'SCH08',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:12,giz:40,m800:40,m9001:40,m9002:40,sq:48},
+{ref:'HP0003TR11C1P20',insert:'M01-I3',model:'BARQUETTE PLASTIQUE PET RAYEE 375 CC TRANSPARENT 11 GR',bobine:'BOBINE SF-PET 310 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:12,nbrUnitePaque:100,nbrUniteCrt:1200,refCarton:'CRT10',refSachet:'SCH10',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:12,giz:40,m800:40,m9001:40,m9002:40,sq:48},
+{ref:'HP0003TR9C1P20',insert:'M01-I3',model:'BARQUETTE PLASTIQUE PET RAYEE 375 CC TRANSPARENT 9 GR Expo',bobine:'BOBINE SF-PET 260 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:10,nbrUnitePaque:100,nbrUniteCrt:1000,refCarton:'CRT24',refSachet:'SCH08',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreint:12,giz:40,m800:40,m9001:40,m9002:40,sq:48},
+{ref:'HP0004TR12C1P20',insert:'M02-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 500 CC TRANSPARENT 12 GR Expo',bobine:'BOBINE SF-PET 280 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:9,nbrUnitePaque:100,nbrUniteCrt:900,refCarton:'CRT24',refSachet:'SCH081',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreint:10,giz:40,m800:40,m9001:40,m9002:40,sq:40},
+{ref:'HP0004TR13C1P20',insert:'M02-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 500 CC TRANSPARENT 13 GR',bobine:'BOBINE SF-PET 310 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:10,nbrUnitePaque:100,nbrUniteCrt:1000,refCarton:'CRT14',refSachet:'SCH11',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:10,giz:40,m800:40,m9001:40,m9002:40,sq:40},
+{ref:'HP0005TR12C1P20',insert:'M02-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 500 CC L TRANSPARENT 12 GR Expo',bobine:'BOBINE SF-PET 280 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:9,nbrUnitePaque:100,nbrUniteCrt:900,refCarton:'CRT24',refSachet:'SCH081',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreint:10,giz:40,m800:40,m9001:40,m9002:40,sq:40},
+{ref:'HP0005TR13C1P20',insert:'M02-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 500 CC L TRANSPARENT 13 GR',bobine:'BOBINE SF-PET 310 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:10,nbrUnitePaque:100,nbrUniteCrt:1000,refCarton:'CRT14',refSachet:'SCH12',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:10,giz:40,m800:40,m9001:40,m9002:40,sq:40},
+{ref:'HP0005TR13C2P20',insert:'M02-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 500 CC C TRANSPARENT 13 GR Multi-usage',bobine:'BOBINE SF-PET 310 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:80,nbrUnitePaque:5,nbrUniteCrt:400,refCarton:'CRT14',refSachet:'SCH44',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:10,giz:40,m800:40,m9001:40,m9002:40,sq:40},
+{ref:'HP0006TR17C1P20',insert:'M03-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 750 CC TRANSPARENT 17 GR Expo',bobine:'BOBINE SF-PET 260 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT24',refSachet:'SCH13',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreint:8,giz:42,m800:0,m9001:42,m9002:42,sq:35},
+{ref:'HP0006TR18_5C1P20',insert:'M03-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 750 CC TRANSPARENT 18,5 GR',bobine:'BOBINE SF-PET 280 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT08',refSachet:'SCH23',refPalette:'PL-004',nbrCartoPar:20,nbrEmpreint:8,giz:42,m800:0,m9001:42,m9002:42,sq:35},
+{ref:'HP007TR17C1P20',insert:'M03-I1L',model:'BARQUETTE PLASTIQUE PET RAYEE 750 CC L TRANSPARENT 17 GR Expo',bobine:'BOBINE SF-PET 260 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT24',refSachet:'SCH13',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreint:8,giz:42,m800:0,m9001:42,m9002:42,sq:35},
+{ref:'HP007TR18_5C3P20',insert:'M03-I1L',model:'BARQUETTE PLASTIQUE PET RAYEE 750 CC L TRANSPARENT 18,5 GR',bobine:'BOBINE SF-PET 280 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT08',refSachet:'SCH24',refPalette:'PL-004',nbrCartoPar:20,nbrEmpreint:8,giz:42,m800:0,m9001:42,m9002:42,sq:35},
+{ref:'HP008TR20C1P20',insert:'M03-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 1000 CC TRANSPARENT 20 GR Expo',bobine:'BOBINE SF-PET 310 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT24',refSachet:'SCH13',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreint:8,giz:40,m800:0,m9001:40,m9002:40,sq:35},
+{ref:'HP008TR22C1P20',insert:'M03-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 1000 CC TRANSPARENT 22 GR',bobine:'BOBINE SF-PET 330 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT08',refSachet:'SCH25',refPalette:'PL-004',nbrCartoPar:20,nbrEmpreint:8,giz:40,m800:0,m9001:40,m9002:40,sq:35},
+{ref:'HP009TR20C1P20',insert:'M03-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1000 CC L TRANSPARENT 20 GR Expo',bobine:'BOBINE SF-PET 310 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT24',refSachet:'SCH13',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreint:8,giz:40,m800:0,m9001:40,m9002:40,sq:35},
+{ref:'HP009TR22C1P20',insert:'M03-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1000 CC L TRANSPARENT 22 GR',bobine:'BOBINE SF-PET 330 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:100,nbrUniteCrt:600,refCarton:'CRT08',refSachet:'SCH26',refPalette:'PL-004',nbrCartoPar:20,nbrEmpreint:8,giz:40,m800:0,m9001:40,m9002:40,sq:35},
+{ref:'HP010TR22C2P20',insert:'M03-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1000 CC L TRANSPARENT 22 GR Multi-usage',bobine:'BOBINE SF-PET 330 910 TRANSPARENT F2 SILICONE 2',nbrPaquet:40,nbrUnitePaque:5,nbrUniteCrt:200,refCarton:'CRT08',refSachet:'SCH46',refPalette:'PL-004',nbrCartoPar:20,nbrEmpreint:8,giz:40,m800:0,m9001:40,m9002:40,sq:35},
+{ref:'HP010TR29_5C2P20',insert:'M51-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 1250 CC TRANSPARENT 29,5 GR',bobine:'BOBINE SF-PET 275 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH21',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:4,giz:0,m800:40,m9001:40,m9002:40,sq:35},
+{ref:'HP010TR29C2P24',insert:'M51-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 1250 CC TRANSPARENT 29 GR EXPO',bobine:'BOBINE SF-PET 270 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:4,giz:0,m800:40,m9001:40,m9002:40,sq:35},
+{ref:'HP010TR29C3P20',insert:'M04-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 1250 CC TRANSPARENT 29,5 GR',bobine:'BOBINE SF-PET 275 B05 TRANSPARENT F3 SILICONE 3',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH21',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:3,giz:45,m800:45,m9001:45,m9002:45,sq:35},
+{ref:'HP010TR30C1P24',insert:'M04-I1',model:'BARQUETTE PLASTIQUE PET RAYEE 1250 CC TRANSPARENT 30 GR EXPO',bobine:'BOBINE SF-PET 280 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:3,giz:45,m800:45,m9001:45,m9002:45,sq:35},
+{ref:'HP011TR29_5C3P20',insert:'M51-I1L',model:'BARQUETTE PLASTIQUE PET RAYEE 1250 CC L TRANSPARENT 29,5 GR',bobine:'BOBINE SF-PET 275 B05 TRANSPARENT F3 SILICONE 3',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH14',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:4,giz:0,m800:40,m9001:40,m9002:40,sq:35},
+{ref:'HP011TR29C2P24',insert:'M51-I1L',model:'BARQUETTE PLASTIQUE PET RAYEE 1250 CC L TRANSPARENT 29 GR EXPO',bobine:'BOBINE SF-PET 270 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:4,giz:0,m800:40,m9001:40,m9002:40,sq:35},
+{ref:'HP011TR30C2P20',insert:'M04-I1L',model:'BARQUETTE PLASTIQUE PET RAYEE 1250 CC L TRANSPARENT 30 GR',bobine:'BOBINE SF-PET 285 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH14',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:3,giz:45,m800:45,m9001:45,m9002:45,sq:35},
+{ref:'HP011TR30_5C2P20',insert:'M04-I1L',model:'BARQUETTE PLASTIQUE PET RAYEE 1250 CC L TRANSPARENT 30,5 GR Multi-usage',bobine:'BOBINE SF-PET 285 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:48,nbrUnitePaque:5,nbrUniteCrt:240,refCarton:'CRT12',refSachet:'SCH47',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:3,giz:45,m800:45,m9001:45,m9002:45,sq:35},
+{ref:'HP012TR31C2P24',insert:'M51-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 1500 CC TRANSPARENT 31 GR EXPO',bobine:'BOBINE SF-PET 285 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:4,giz:0,m800:40,m9001:40,m9002:40,sq:35},
+{ref:'HP012TR31_5C2P20',insert:'M04-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 1500 CC TRANSPARENT 31,5 GR',bobine:'BOBINE SF-PET 290 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH16',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:3,giz:45,m800:45,m9001:45,m9002:45,sq:35},
+{ref:'HP012TR32C2P24',insert:'M04-I2',model:'BARQUETTE PLASTIQUE PET RAYEE 1500 CC TRANSPARENT 32 GR EXPO',bobine:'BOBINE SF-PET 295 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:3,giz:45,m800:45,m9001:45,m9002:45,sq:35},
+{ref:'HP013TR31_5C2P20',insert:'M51-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1500 CC L TRANSPARENT 31,5 GR',bobine:'BOBINE SF-PET 290 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH16',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:4,giz:0,m800:40,m9001:40,m9002:40,sq:35},
+{ref:'HP013TR31C2P24',insert:'M51-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1500 CC L TRANSPARENT 31 GR EXPO',bobine:'BOBINE SF-PET 285 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:4,giz:0,m800:40,m9001:40,m9002:40,sq:35},
+{ref:'HP013TR32_5C2P20',insert:'M04-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1500 CC L TRANSPARENT 32,5 GR',bobine:'BOBINE SF-PET 300 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH16',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:3,giz:45,m800:45,m9001:45,m9002:45,sq:35},
+{ref:'HP013TR32C3P24',insert:'M04-I2L',model:'BARQUETTE PLASTIQUE PET RAYEE 1500 CC L TRANSPARENT 32 GR EXPO',bobine:'BOBINE SF-PET 295 B20 TRANSPARENT F3 SILICONE 3',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:3,giz:45,m800:45,m9001:45,m9002:45,sq:35},
+{ref:'HP014TR33C2P24',insert:'M51-I3',model:'BARQUETTE PLASTIQUE PET RAYEE 1750 CC TRANSPARENT 33 GR EXPO',bobine:'BOBINE SF-PET 300 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:4,giz:0,m800:37.5,m9001:37.5,m9002:37.5,sq:35},
+{ref:'HP014TR34C1P24',insert:'M04-I3',model:'BARQUETTE PLASTIQUE PET RAYEE 1750 CC TRANSPARENT 34 GR EXPO',bobine:'BOBINE SF-PET 310 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:3,giz:40,m800:40,m9001:40,m9002:40,sq:35},
+{ref:'HP014TR36_5C2P20',insert:'M51-I3',model:'BARQUETTE PLASTIQUE PET RAYEE 1750 CC TRANSPARENT 36,5 GR',bobine:'BOBINE SF-PET 335 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT13',refSachet:'SCH17',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:4,giz:0,m800:37.5,m9001:37.5,m9002:37.5,sq:35},
+{ref:'HP014TR38C1P20',insert:'M04-I3',model:'BARQUETTE PLASTIQUE PET RAYEE 1750 CC TRANSPARENT 38 GR',bobine:'BOBINE SF-PET 345 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT13',refSachet:'SCH17',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:3,giz:40,m800:40,m9001:40,m9002:40,sq:35},
+{ref:'HP015TR33C2P24',insert:'M51-I3L',model:'BARQUETTE PLASTIQUE PET RAYEE 1750 CC L TRANSPARENT 33 GR EXPO',bobine:'BOBINE SF-PET 300 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:4,giz:0,m800:37.5,m9001:37.5,m9002:37.5,sq:35},
+{ref:'HP015TR34C1P24',insert:'M04-I3L',model:'BARQUETTE PLASTIQUE PET RAYEE 1750 CC L TRANSPARENT 34 GR EXPO',bobine:'BOBINE SF-PET 310 B20 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:3,giz:40,m800:40,m9001:40,m9002:40,sq:35},
+{ref:'HP015TR36_5C2P20',insert:'M51-I3L',model:'BARQUETTE PLASTIQUE PET RAYEE 1750 CC L TRANSPARENT 36,5 GR',bobine:'BOBINE SF-PET 335 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT13',refSachet:'SCH18',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:4,giz:0,m800:37.5,m9001:37.5,m9002:37.5,sq:35},
+{ref:'HP016TR34C2P24',insert:'M51-I4',model:'BARQUETTE PLASTIQUE PET RAYEE 2000 CC TRANSPARENT 34 GR EXPO',bobine:'BOBINE SF-PET 320 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:4,giz:0,m800:37.5,m9001:37.5,m9002:37.5,sq:35},
+{ref:'HP016TR37C2P20',insert:'M51-I4',model:'BARQUETTE PLASTIQUE PET RAYEE 2000 CC TRANSPARENT 37 GR',bobine:'BOBINE SF-PET 345 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT13',refSachet:'SCH19',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:4,giz:0,m800:37.5,m9001:37.5,m9002:37.5,sq:35},
+{ref:'HP017TR34C2P24',insert:'M51-I4L',model:'BARQUETTE PLASTIQUE PET RAYEE 2000 CC L TRANSPARENT 34 GR EXPO',bobine:'BOBINE SF-PET 320 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT31',refSachet:'SCH29',refPalette:'PL-003',nbrCartoPar:24,nbrEmpreint:4,giz:0,m800:37.5,m9001:37.5,m9002:37.5,sq:35},
+{ref:'HP017TR37C2P20',insert:'M51-I4L',model:'BARQUETTE PLASTIQUE PET RAYEE 2000 CC L TRANSPARENT 37 GR',bobine:'BOBINE SF-PET 345 B05 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:400,refCarton:'CRT13',refSachet:'SCH20',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:4,giz:0,m800:37.5,m9001:37.5,m9002:37.5,sq:35},
+{ref:'HP018BL09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 BLEU CLAIRE TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 BLEU CLAIRE TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64,nbrEmpreint:6,giz:55,m800:55,m9001:55,m9002:55,sq:73},
+{ref:'HP018BN09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 BLANC OPAQUE 09 GR',bobine:'BOBINE SF-PET 170 760 BLANC OPAQUE F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64,nbrEmpreint:6,giz:55,m800:55,m9001:55,m9002:55,sq:73},
+{ref:'HP018JN09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 JAUNE CLAIRE TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 JAUNE CLAIRE TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64,nbrEmpreint:6,giz:55,m800:55,m9001:55,m9002:55,sq:73},
+{ref:'HP018NR09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 NOIR OPAQUE 09 GR',bobine:'BOBINE SF-PET 170 760 NOIR OPAQUE F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64,nbrEmpreint:6,giz:55,m800:55,m9001:55,m9002:55,sq:73},
+{ref:'HP018OR09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 ORANGE CLAIRE TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 ORANGE CLAIRE TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64,nbrEmpreint:6,giz:55,m800:55,m9001:55,m9002:55,sq:73},
+{ref:'HP018RS09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 ROSE CLAIRE TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 ROSE CLAIRE TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64,nbrEmpreint:6,giz:55,m800:55,m9001:55,m9002:55,sq:73},
+{ref:'HP018TR09C1P64',insert:'M05-I1',model:'PLAT PLASTIQUE PET GRAND MODEL LUXE diametre 210 TRANSPARENT 09 GR',bobine:'BOBINE SF-PET 170 760 TRANSPARENT F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT03',refSachet:'SCH78',refPalette:'PL-002',nbrCartoPar:64,nbrEmpreint:6,giz:55,m800:55,m9001:55,m9002:55,sq:73},
+{ref:'HP019BN7,5C1P64',insert:'M05-I2',model:'PLAT PLASTIQUE PET ECO - diametre 195 BLANC OPAQUE 7,5 GR',bobine:'BOBINE SF-PET 170 710 BLANC OPAQUE F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT04',refSachet:'SCH77',refPalette:'PL-002',nbrCartoPar:64,nbrEmpreint:6,giz:50,m800:50,m9001:50,m9002:50,sq:73},
+{ref:'HP020BN05C1P80',insert:'M07-I2',model:'PLAT PLASTIQUE PET PETIT MODEL - diametre 165 BLANC OPAQUE 05 GR',bobine:'BOBINE SF-PET 160 890 BLANC OPAQUE F3 SILICONE 1',nbrPaquet:50,nbrUnitePaque:20,nbrUniteCrt:1000,refCarton:'CRT02',refSachet:'SCH82',refPalette:'PL-002',nbrCartoPar:80,nbrEmpreint:12,giz:40,m800:40,m9001:40,m9002:40,sq:40},
+{ref:'HP021TR05C1P30',insert:'M08-I1',model:'GOBLET PLASTIQUE PET COMMUN - diametre 82 TRANSPARENT 05 GR',bobine:'BOBINE SF-PET 640 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:60,nbrUnitePaque:25,nbrUniteCrt:1500,refCarton:'CRT07',refSachet:'SCH45',refPalette:'PL-003',nbrCartoPar:30,nbrEmpreint:35,giz:35,m800:35,m9001:35,m9002:35,sq:100},
+{ref:'HP022TR05C1P30',insert:'M05-I4',model:'BARQUETTE PLASTIQUE PET COOKIES HAUT 3 COMPARTIMENTS CARRE TRANSPARENT 05 GR',bobine:'BOBINE SF-PET 215 785 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:1932,nbrUniteCrt:1932,refCarton:'CRT07',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30,nbrEmpreint:16,giz:40,m800:40,m9001:40,m9002:40,sq:35},
+{ref:'HP023TR3_5C1P80',insert:'M08-I2',model:'POT PLASTIQUE PET GLACES - diametre 80 TRANSPARENT 3,5 GR',bobine:'BOBINE SF-PET 440 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH31',refPalette:'PL-003',nbrCartoPar:80,nbrEmpreint:35,giz:20,m800:20,m9001:20,m9002:20,sq:100},
+{ref:'HP023TR3_8C1P30',insert:'M08-I2',model:'POT PLASTIQUE PET GLACES - diametre 80 TRANSPARENT 3,8 GR',bobine:'BOBINE SF-PET 480 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:60,nbrUnitePaque:25,nbrUniteCrt:1500,refCarton:'CRT07',refSachet:'SCH45',refPalette:'PL-003',nbrCartoPar:30,nbrEmpreint:35,giz:20,m800:20,m9001:20,m9002:20,sq:100},
+{ref:'HP024DR05C1P28',insert:'M08-I3',model:'POT PLASTIQUE PET GATEAU - diametre 80 DORE FONCE OPAQUE 05 GR',bobine:'BOBINE SF-PET 620 770 DORE FONCE OPAQUE F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:1500,nbrUniteCrt:1500,refCarton:'CRT01',refSachet:'SCH27',refPalette:'PL-003',nbrCartoPar:28,nbrEmpreint:35,giz:20,m800:20,m9001:20,m9002:20,sq:100},
+{ref:'HP024TR03C1P80',insert:'M08-I3',model:'POT PLASTIQUE PET GATEAU - diametre 80 TRANSPARENT 03 GR',bobine:'BOBINE SF-PET 375 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH31',refPalette:'PL-002',nbrCartoPar:80,nbrEmpreint:35,giz:20,m800:20,m9001:20,m9002:20,sq:100},
+{ref:'HP024TR04C1P80',insert:'M08-I3',model:'POT PLASTIQUE PET GATEAU - diametre 80 TRANSPARENT 04 GR',bobine:'BOBINE SF-PET 400 770 TRANSPARENT F1 SILICONE 2',nbrPaquet:1,nbrUnitePaque:400,nbrUniteCrt:400,refCarton:'CRT17',refSachet:'SCH07',refPalette:'PL-003',nbrCartoPar:80,nbrEmpreint:35,giz:20,m800:20,m9001:20,m9002:20,sq:100},
+{ref:'HP025ML06C1P30',insert:'M09-I3',model:'BARQUETTE PLASTIQUE PET COOKIES - 2 COMPARTIMENTS RECTANGLE MIEL TRANSPARENT 06 GR',bobine:'BOBINE SF-PET 275 785 MIEL TRANSPARENT F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:2100,nbrUniteCrt:2100,refCarton:'CRT07',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30,nbrEmpreint:16,giz:40,m800:40,m9001:40,m9002:40,sq:35},
+{ref:'HP026TR25C1P20',insert:'M17-I2',model:'BARQUETTE PLASTIQUE PET BISCUITS BIG 12 COMPARTIMENTS ROND TRANSPARENT 25 GR',bobine:'BOBINE SF-PET 340 750 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:600,nbrUniteCrt:600,refCarton:'CRT15',refSachet:'SCH02',refPalette:'PL-002',nbrCartoPar:20,nbrEmpreint:4,giz:80,m800:30,m9001:30,m9002:30,sq:50},
+{ref:'HP103BN22CP48',insert:'M50-126PB',model:'ALVEOLE PLASTIQUE PET FRUIT POIRES GRAND MODEL 22 COMPARTIMENTS - BLANC OPAQUE 22 GR',bobine:'BOBINE SF-PET 110 1000 BLANC OPAQUE F3 SILICONE 2',nbrPaquet:10,nbrUnitePaque:50,nbrUniteCrt:500,refCarton:'CRT20',refSachet:'',refPalette:'PL-004',nbrCartoPar:48,nbrEmpreint:3,q30000:0,q10000:0,q5000:45,nq:45},
+{ref:'HP103NR22CP48',insert:'M50-126PB',model:'ALVEOLE PLASTIQUE PET FRUIT POIRES GRAND MODEL 22 COMPARTIMENTS - NOIR OPAQUE 22 GR',bobine:'BOBINE SF-PET 110 1000 NOIR OPAQUE F3 SILICONE 2',nbrPaquet:10,nbrUnitePaque:50,nbrUniteCrt:500,refCarton:'CRT20',refSachet:'',refPalette:'PL-004',nbrCartoPar:48,nbrEmpreint:3,q30000:0,q10000:0,q5000:45,nq:45},
+{ref:'HP104TR40C1P24',insert:'M40-I1',model:'BOITE PLASTIQUE PET BONBON ROND H130 DIAMETRE 172 TRANSPARENT 40 GR EXPO',bobine:'BOBINE SF-PET 1060 680 TRANSPARENT F1 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT26',refSachet:'SCH50',refPalette:'PL-007',nbrCartoPar:24,nbrEmpreint:8,q30000:0,q10000:0,q5000:18,nq:18},
+{ref:'HP105TR50C1P24',insert:'M40-I2',model:'BOITE PLASTIQUE PET BONBON ROND H75 DIAMETRE 172 TRANSPARENT 30 GR',bobine:'BOBINE SF-PET 880 880 TRANSPARENT F1 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT26',refSachet:'SCH51',refPalette:'PL-007',nbrCartoPar:24,nbrEmpreint:8,q30000:0,q10000:0,q5000:18,nq:18},
+{ref:'HP106TR55C1P20',insert:'M47-I1',model:'BARQUETTE PLASTIQUE DATTE 2 KG PREMIUM TRANSPARENT 55 GR',bobine:'BOBINE SF-PET 350 900 TRANSPARENT F1 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT33',refSachet:'SCH87',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:4,q30000:0,q10000:0,q5000:33,nq:33},
+{ref:'HP107TR13C1P25',insert:'M13-I2',model:'ALVEOLE PLASTIQUE PET OUF DE CAILLE 12 COMPARTIMENTS - TRANSPARENT 13 GR',bobine:'BOBINE SF-PET 270 720 TRANSPARENT F2 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1000,nbrUniteCrt:1000,refCarton:'CRT09',refSachet:'SCH01',refPalette:'PL-009',nbrCartoPar:25,nbrEmpreint:8,q30000:30,q10000:30,q5000:30,nq:30},
+{ref:'HP108NR13C1P24',insert:'M40-I4',model:'BOITE PLASTIQUE PET SALADE 250 GR DIAMETRE 172 NOIR OPAQUE 13 GR',bobine:'BOBINE SF-PET 380 880 NOIR OPAQUE F3 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT25',refSachet:'SCH38',refPalette:'PL-005',nbrCartoPar:24,nbrEmpreint:8,q30000:0,q10000:0,q5000:30,nq:30},
+{ref:'HP108TR13C1P24',insert:'M40-I4',model:'BOITE PLASTIQUE PET SALADE 250 GR DIAMETRE 172 TRANSPARENT 13 GR',bobine:'BOBINE SF-PET 380 880 TRANSPARENT F1 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT25',refSachet:'SCH39',refPalette:'PL-005',nbrCartoPar:24,nbrEmpreint:8,q30000:0,q10000:0,q5000:30,nq:30},
+{ref:'HP109NR13C1P24',insert:'M40-I3',model:'BOITE PLASTIQUE PET SALADE 500 GR DIAMETRE 172 NOIR OPAQUE 19 GR',bobine:'BOBINE SF-PET 540 880 NOIR OPAQUE F3 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT25',refSachet:'SCH28',refPalette:'PL-005',nbrCartoPar:24,nbrEmpreint:8,q30000:0,q10000:0,q5000:30,nq:30},
+{ref:'HP126TR85C1P20',insert:'M6I-I6',model:'BARQUETTE PLASTIQUE PET LISSE 250 CC PREMIUM TRANSPARENT 8.5 GR',bobine:'BOBINE SF-PET 210 820 TRANSPARENT F2 SILICONE 2',nbrPaquet:12,nbrUnitePaque:100,nbrUniteCrt:1200,refCarton:'CRT08',refSachet:'SCH81',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:12,q30000:40,q10000:40,q5000:40,nq:40},
+{ref:'HP127TR13C1P30',insert:'M6I-I6',model:'BARQUETTE PLASTIQUE PET LISSE 375 CC PREMIUM TRANSPARENT 13 GR',bobine:'BOBINE SF-PET 270 820 TRANSPARENT F2 SILICONE 2',nbrPaquet:12,nbrUnitePaque:100,nbrUniteCrt:1200,refCarton:'CRT10',refSachet:'SCH82',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:12,q30000:40,q10000:40,q5000:40,nq:40},
+{ref:'HP128TR10C1P30',insert:'M10-I2',model:'BARQUETTE PLASTIQUE PET LISSE 500 CC PREMIUM TRANSPARENT 10 GR',bobine:'BOBINE SF-PET 330 820 TRANSPARENT F2 SILICONE 2',nbrPaquet:10,nbrUnitePaque:100,nbrUniteCrt:1000,refCarton:'CRT14',refSachet:'SCH62',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:10,q30000:40,q10000:0,q5000:40,nq:40},
+{ref:'HP129TR39C1P20',insert:'M04-I5L',model:'BARQUETTE PLASTIQUE PET LISSE 1250 CC PREMIUM TRANSPARENT 39 GR',bobine:'BOBINE SF-PET 360 820 TRANSPARENT F2 SILICONE 2',nbrPaquet:5,nbrUnitePaque:80,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH70',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:3,q30000:35,q10000:35,q5000:35,nq:35},
+{ref:'HP130TR41C1P20',insert:'M04-I6',model:'BARQUETTE PLASTIQUE PET LISSE 1500 CC PREMIUM TRANSPARENT 41 GR',bobine:'BOBINE SF-PET 380 820 TRANSPARENT F2 SILICONE 2',nbrPaquet:5,nbrUnitePaque:80,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH73',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:3,q30000:35,q10000:35,q5000:35,nq:35},
+{ref:'HP131TR43C1P20',insert:'M04-I7L',model:'BARQUETTE PLASTIQUE PET LISSE 1750 CC PREMIUM TRANSPARENT 43 GR',bobine:'BOBINE SF-PET 400 820 TRANSPARENT F2 SILICONE 2',nbrPaquet:5,nbrUnitePaque:80,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH74',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:3,q30000:30,q10000:30,q5000:30,nq:30},
+{ref:'HP132TR45C1P20',insert:'M04-I8L',model:'BARQUETTE PLASTIQUE PET LISSE 2000 CC PREMIUM TRANSPARENT 45 GR',bobine:'BOBINE SF-PET 430 830 TRANSPARENT F2 SILICONE 2',nbrPaquet:5,nbrUnitePaque:80,nbrUniteCrt:400,refCarton:'CRT12',refSachet:'SCH76',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:3,q30000:30,q10000:30,q5000:30,nq:30},
+{ref:'HP133BN22CP48',insert:'M50-126PB',model:'ALVEOLE PLASTIQUE PET FRUIT POIRES PETIT MODEL HAUT 26 COMPARTIMENTS RECTANGLE BLANC OPAQUE 22 GR',bobine:'BOBINE SF-PET 110 1000 BLANC OPAQUE F3 SILICONE 2',nbrPaquet:11,nbrUnitePaque:50,nbrUniteCrt:550,refCarton:'CRT20',refSachet:'',refPalette:'PL-004',nbrCartoPar:48,nbrEmpreint:3,q30000:0,q10000:0,q5000:45,nq:45},
+{ref:'HP133NR22CP48',insert:'M50-126PB',model:'ALVEOLE PLASTIQUE PET FRUIT POIRES PETIT MODEL HAUT 26 COMPARTIMENTS RECTANGLE NOIR OPAQUE 22 GR',bobine:'BOBINE SF-PET 110 1000 NOIR OPAQUE F3 SILICONE 2',nbrPaquet:11,nbrUnitePaque:50,nbrUniteCrt:550,refCarton:'CRT20',refSachet:'',refPalette:'PL-004',nbrCartoPar:48,nbrEmpreint:3,q30000:0,q10000:0,q5000:45,nq:45},
+{ref:'HP134TR10C1P56',insert:'M41-I3',model:'COUVERCLE PLASTIQUE PET BONBON ROND HAUT AVEC TROUS diamétre 176 TRANSPARENT 10 GR',bobine:'BOBINE SF-PET 300 840 TRANSPARENT F2 SILICONE 2',nbrPaquet:8,nbrUnitePaque:50,nbrUniteCrt:450,refCarton:'CRT23',refSachet:'SCH52',refPalette:'PL-004',nbrCartoPar:56,nbrEmpreint:8,q30000:30,q10000:30,q5000:30,nq:30},
+{ref:'HP135TR12C1P30',insert:'M10-I3',model:'BARQUETTE PLASTIQUE PET CHOCOLAT 12 COMPARTIMENTS TRANSPARENT 12 GR',bobine:'BOBINE SF-PET 300 840 TRANSPARENT F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1200,nbrUniteCrt:1200,refCarton:'CRT06',refSachet:'SCH01',refPalette:'PL-003',nbrCartoPar:30,nbrEmpreint:10,q30000:40,q10000:0,q5000:40,nq:40},
+{ref:'HP136ML07C1P24',insert:'M48-I1',model:'BARQUETTE PLASTIQUE PET ROULE XL MIEL TRANSPARENT 07 GR',bobine:'BOBINE SF-PET 295 925 MIEL TRANSPARENT F3 SILICONE 2',nbrPaquet:1,nbrUnitePaque:1800,nbrUniteCrt:1800,refCarton:'CRT34',refSachet:'SCH85',refPalette:'PL-001',nbrCartoPar:34,nbrEmpreint:14,q30000:6,q10000:0,q5000:35,nq:35},
+{ref:'HP140TR40C1P20',insert:'M47-I3',model:'BARQUETTE PLASTIQUE PET PATISSERIE 1250 GR TRANSPARENT 40 GR',bobine:'BOBINE SF-PET 260 900 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT33',refSachet:'SCH86',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:4,q30000:0,q10000:0,q5000:33,nq:33},
+{ref:'HP141TR50C1P20',insert:'M47-I1',model:'BARQUETTE PLASTIQUE PET PATISSERIE 2000 GR TRANSPARENT 50 GR',bobine:'BOBINE SF-PET 320 900 TRANSPARENT F2 SILICONE 2',nbrPaquet:6,nbrUnitePaque:50,nbrUniteCrt:300,refCarton:'CRT33',refSachet:'SCH83',refPalette:'PL-003',nbrCartoPar:20,nbrEmpreint:4,q30000:0,q10000:0,q5000:33,nq:33},
+{ref:'HP142TR11C1P18',insert:'M53-I1',model:'BARQUETTE PLASTIQUE PET COOKIES 2 CM XL CARRE TRANSPARENT 11 GR',bobine:'BOBINE SF-PET 470 890 TRANSPARENT F3 SILICONE 3',nbrPaquet:1,nbrUnitePaque:1050,nbrUniteCrt:1050,refCarton:'CRT36',refSachet:'SCH35',refPalette:'PL-001',nbrCartoPar:18,nbrEmpreint:21,q30000:0,q10000:0,q5000:30,nq:30},
+{ref:'HP144TR03C1P21',insert:'M54-I1',model:'BARQUETTE PLASTIQUE PET HAPPY 4 TRANSPARENT 03 GR',bobine:'BOBINE SF-PET 255 815 TRANSPARENT F3 SILICONE 2',nbrPaquet:28,nbrUnitePaque:120,nbrUniteCrt:3360,refCarton:'CRT36',refSachet:'SCH35',refPalette:'PL-001',nbrCartoPar:21,nbrEmpreint:32,q30000:0,q10000:0,q5000:30,nq:0}
 ];
 
 var PALETTE={
@@ -612,6 +627,9 @@ var PALETTE={
 'PL-002':'120*100',
 'PL-003':'130*110',
 'PL-004':'115*115',
+'PL-005':'110*100',
+'PL-007':'155*110',
+'PL-009':'130*110',
 'PL-006':'110*130'
 };
 
@@ -866,37 +884,43 @@ document.querySelectorAll('[data-go="rq"]').forEach(function(b){b.addEventListen
 window.addEventListener('popstate',qSync);
 qClear();qSync();
 
-/* ========== P1 : recherche produit -> ENET / عدد الوحدات / ref g ========== */
-function lastGR(model,ref){
-var all=(model||'').match(/(\d+(?:[.,]\d+)?)\s*GR/ig);
-if(all&&all.length){var m=all[all.length-1].match(/(\d+(?:[.,]\d+)?)/);return parseFloat(m[1].replace(',','.'));}
-var m2=(ref||'').match(/(\d+(?:[.,]\d+)?)C1/i);
-return m2?parseFloat(m2[1].replace(',','.')):NaN;
+/* ========== P1 : remplissage automatique depuis la base ========== */
+var pAuto=false;
+function pPct(w){return w<=10?'4':w<=15?'3':w<=20?'2.5':w<=25?'2':w<=35?'1.5':w<=50?'1':'0.5';}
+function pGrammage(row){
+var re=/(\d+(?:[.,]\d+)?)\s*GR/gi,m,last=null;
+while((m=re.exec(row.model||''))!==null)last=m[1];
+if(last===null){var p=extractPoids(row.model,row.ref);if(p!=='-')last=p.replace(/\s*GR$/i,'');}
+return last===null?NaN:parseFloat(String(last).replace(',','.'));
+}
+function pClear(){
+g('pchips').textContent='';
+if(pAuto){g('w').value='';g('u').value='';g('en').value='';pAuto=false;calc();qSync();}
 }
 function pFill(row){
-var w=lastGR(row.model,row.ref);
-g('w').value=isFinite(w)?w:'';
+var w=pGrammage(row);
+if(isFinite(w)){g('w').value=String(w);g('pct').value=pPct(w);}
 g('u').value=row.nbrUniteCrt!=null?row.nbrUniteCrt:'';
-g('en').value=row.nbrEmpreinte!=null?row.nbrEmpreinte:'';
-autoPct();
-calc();
-qSync();
+g('en').value=row.nbrEmpreint!=null?row.nbrEmpreint:'';
+pAuto=true;
 g('pchips').textContent='';
+calc();qSync();
 }
 function pSearch(){
 var q=g('pref').value.trim().toUpperCase().replace(/\s+/g,'').replace(/^HP\//,'');
 g('pchips').textContent='';
-if(!q)return;
+if(!q){pClear();return;}
 var q2=q.replace(/^HP/i,'');
 var hits=PROD.filter(function(p){
 var r=p.ref.toUpperCase();
 return r.indexOf(q)===0||r.replace(/^HP/,'').indexOf(q2)===0;
 });
-if(hits.length===0)return;
+if(hits.length===0){pClear();return;}
 if(hits.length===1){pFill(hits[0]);return;}
+pClear();
 hits.forEach(function(h){
 var b=document.createElement('button');
-b.type='button';b.className='chip';b.textContent='HP/'+h.ref;
+b.type='button';b.className='chip';b.textContent=h.ref;
 b.addEventListener('click',function(){g('pref').value=h.ref;pFill(h);});
 g('pchips').appendChild(b);
 });
@@ -922,7 +946,7 @@ var tb=g('ftb');
 tb.textContent='';
 slice.forEach(function(r){
 var tr=document.createElement('tr');
-[r.ref,r.insert,r.model,r.bobine,r.nbrPaquet,r.nbrUnitePaque,r.nbrUniteCrt,r.refCarton,r.refSachet,r.refPalette,r.nbrCartoPar,r.nbrEmpreinte].forEach(function(v){
+[r.ref,r.insert,r.model,r.bobine,r.nbrPaquet,r.nbrUnitePaque,r.nbrUniteCrt,r.refCarton,r.refSachet,r.refPalette,r.nbrCartoPar,r.nbrEmpreint].forEach(function(v){
 var td=document.createElement('td');td.textContent=v!=null?String(v):'';
 tr.appendChild(td);
 });
