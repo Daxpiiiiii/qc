@@ -32,6 +32,9 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-appl
 .tile:active{background:var(--ab)}
 .sq{display:flex;align-items:center;justify-content:center;height:80px;font:600 18px inherit;font-family:inherit;color:var(--text);background:var(--card);border:2px solid var(--strong);border-radius:14px}
 .sq:active{background:var(--ab)}
+.navbar{display:flex;gap:8px;margin:0 0 14px}
+.navbar .back{margin:0}
+.back:disabled{opacity:.35}
 .back{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;margin:0 0 14px;padding:0;font:600 20px inherit;font-family:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:10px}
 .ver{text-align:center;font-size:12px;color:var(--muted);margin-top:22px}
 #st{margin-top:10px}
@@ -61,6 +64,12 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 .midx.dim{background:var(--dim);color:var(--muted);border-color:var(--line)}
 .midx span{flex:1;text-align:center}
 .midx .x{flex-shrink:0;font-weight:700;font-size:14px;padding:0;color:var(--muted)}
+.menu{display:flex;flex-direction:column;gap:6px;margin:8px 0;padding:8px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.menu[hidden]{display:none}
+.menu button{height:44px;font:600 16px inherit;font-family:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:8px}
+.menu button:active{background:var(--ab)}
+.rqa{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1.6fr) minmax(0,.7fr);gap:8px}
+.bx.s2{height:auto;min-height:46px;font-size:12px;line-height:1.25;padding:5px 6px;text-align:center;word-break:break-word}
 </style>
 </head>
 <body>
@@ -68,15 +77,26 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 
 <!-- HOME -->
 <section id="home" class="v on">
-<button class="tile" data-go="p3">rapport</button>
-<button class="tile" data-go="p1">rapport qualité</button>
-<button class="tile" data-go="p2">extrusion</button>
+<button class="sq" data-go="fulldb" style="width:100%;margin-bottom:10px">Base de donnees</button>
+<div class="r2">
+<button class="sq" data-go="carton">carton</button>
+<button class="sq" data-go="sachets">sachets</button>
+</div>
+<div class="sep"></div>
+<button class="tile" data-go="thermo" style="height:70px;font-size:18px">rapport thermoformage</button>
+<button class="tile" data-go="rq" style="height:70px;font-size:18px">rapport qualité</button>
+<button class="tile" id="calbtn" data-go="p1" style="height:70px;font-size:18px">rapport qualité CAL</button>
+<button class="tile" data-go="p2" style="height:70px;font-size:18px">extrusion</button>
 <p class="ver">Alpha V1.3</p>
 </section>
 
 <!-- P1 rapport qualité -->
 <section id="p1" class="v">
-<button class="back" data-go="home">➔</button>
+<div class="navbar">
+<button class="back" type="button" data-nav="back" title="رجوع">➔</button>
+<button class="back" type="button" data-nav="fwd" title="التالي">⬅</button>
+<button class="back" type="button" data-go="home" title="home">⌂</button>
+</div>
 <label class="lb" for="pref">recherche</label>
 <input id="pref" class="in" type="text" placeholder="HP018RS09C1P64" dir="ltr" autocomplete="off">
 <div class="chips" id="pchips"></div>
@@ -116,16 +136,6 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <p class="bx" id="rw" style="background:var(--card);border-color:var(--line);color:var(--muted)">-</p>
 <p class="bx" id="st" style="background:var(--card);border-color:var(--line)"></p></div>
 <div class="sep"></div>
-<div class="r2">
-<div><span class="lb" dir="ltr">RO+</span><p class="bx" id="mx">-</p></div>
-<div><span class="lb" dir="ltr">RO−</span><p class="bx" id="mn">-</p></div>
-</div>
-<div class="sep"></div>
-<div class="r2">
-<div><span class="lb" dir="ltr">RO]</span><p class="bx" id="romx">-</p></div>
-<div><span class="lb" dir="ltr">RO[</span><p class="bx" id="romn">-</p></div>
-</div>
-<div class="sep"></div>
 <div class="r3">
 <div><span class="lb" dir="ltr">(+)</span><p class="bx" id="rmx">-</p></div>
 <div><span class="lb" dir="ltr">(−)</span><p class="bx" id="rmn">-</p></div>
@@ -135,7 +145,11 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 
 <!-- P2 extrusion -->
 <section id="p2" class="v">
-<button class="back" data-go="home">➔</button>
+<div class="navbar">
+<button class="back" type="button" data-nav="back" title="رجوع">➔</button>
+<button class="back" type="button" data-nav="fwd" title="التالي">⬅</button>
+<button class="back" type="button" data-go="home" title="home">⌂</button>
+</div>
 <label class="lb" for="q">بحث</label>
 <input id="q" class="in" type="text" placeholder="210 x840" dir="ltr" autocomplete="off" inputmode="text">
 <p class="cnt" id="cnt"></p>
@@ -145,55 +159,74 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 </table></div>
 </section>
 
-<!-- P3 rapport -->
-<section id="p3" class="v">
-<button class="back" data-go="home">➔</button>
-<button class="sq" data-go="fulldb" style="width:100%;margin-bottom:10px">Base de donnees</button>
-<div class="r2">
-<button class="sq" data-go="carton">carton</button>
-<button class="sq" data-go="sachets">sachets</button>
-</div>
-<div class="sep"></div>
-<button class="tile" data-go="thermo" style="height:70px;font-size:18px">rapport thermoformage</button>
-<button class="tile" data-go="rq" style="height:70px;font-size:18px">rapport qualité</button>
-</section>
 
 <!-- RAPPORT QUALITE -->
 <section id="rq" class="v">
-<button class="back" data-go="p3">➔</button>
+<div class="navbar">
+<button class="back" type="button" data-nav="back" title="رجوع">➔</button>
+<button class="back" type="button" data-nav="fwd" title="التالي">⬅</button>
+<button class="back" type="button" data-go="home" title="home">⌂</button>
+</div>
 <p class="title">rapport qualité</p>
-<label class="lb" for="qref">recherche</label>
 <div class="search-row">
-<button class="dbbtn" id="qdb" type="button" title="قاعدة البيانات">🗄</button>
+<button class="dbbtn" id="qdb" type="button" title="menu">☰</button>
 <input id="qref" class="in" type="text" placeholder="HP018RS09C1P64" dir="ltr" autocomplete="off">
+</div>
+<div class="menu" id="qmenu" hidden>
+<button type="button" data-to="fulldb">Base de données</button>
+<button type="button" data-to="sachets">Sachets</button>
+<button type="button" data-to="carton">Carton</button>
+<button type="button" data-to="rq">Rapport qualité</button>
 </div>
 <div class="chips" id="qchips"></div>
 <div class="sep"></div>
-<div class="r2"><div><span class="lb">Ref insert</span><p class="bx" id="qins">-</p></div>
-<div><span class="lb">Réf produit</span><p class="bx" id="qlogo">-</p></div></div>
-<div class="sep"></div>
-<div class="r3" dir="ltr">
-<div><span class="lb">Microns</span><p class="bx" id="qmic">-</p></div>
-<div><span class="lb">Laize</span><p class="bx" id="qlaize">-</p></div>
-<div><span class="lb">Poids unité</span><p class="bx" id="qpoids">-</p></div>
+<div class="rqa" dir="ltr">
+<div><span class="lb">D.P</span><p class="bx s2" id="qdp">-</p></div>
+<div><span class="lb">R.P</span><p class="bx s2" id="qrp">-</p></div>
+<div><span class="lb">C.P</span><p class="bx s2" id="qcp">-</p></div>
+</div>
+<div class="r3" dir="ltr" style="margin-top:10px">
+<div><span class="lb">insert</span><p class="bx" id="qins">-</p></div>
+<div><span class="lb">M</span><p class="bx" id="qmic">-</p></div>
+<div><span class="lb">L</span><p class="bx" id="qlaize">-</p></div>
 </div>
 <div class="sep"></div>
-<div class="r3" dir="ltr">
-<div><span class="lb">Nb unités / CRT</span><p class="bx" id="qnb">-</p></div>
-<div><span class="lb">Carton vide (kg)</span><p class="bx" id="qcv">-</p></div>
-<div><span class="lb">Poids (kg)</span><p class="bx" id="qtot">-</p></div>
+<div dir="ltr"><span class="lb">P.P.R <span id="qpct"></span></span><p class="bx" id="qppr">-</p></div>
+<div class="r2" dir="ltr" style="margin-top:8px">
+<div><span class="lb">مجال −</span><p class="bx" id="qpprmn">-</p></div>
+<div><span class="lb">مجال +</span><p class="bx" id="qpprmx">-</p></div>
+</div>
+<div class="r2" dir="ltr" style="margin-top:10px">
+<div><span class="lb">N.U.P.C</span><p class="bx" id="qnb">-</p></div>
+<div><label class="lb" for="qcvin">C.V</label><input id="qcvin" class="in" type="number" step="any" inputmode="decimal"></div>
 </div>
 <div class="sep"></div>
-<div class="r3" dir="ltr">
-<div><span class="lb">Ref sachet</span><p class="bx" id="qsach">-</p><p class="bx sm" id="qsachdim">-</p></div>
-<div><span class="lb">Ref carton</span><p class="bx" id="qcart">-</p><p class="bx sm" id="qcartdim">-</p></div>
-<div><span class="lb">Ref palette</span><p class="bx" id="qplt">-</p><p class="bx sm" id="qpltdim">-</p></div>
+<div dir="ltr"><span class="lb">P.U</span><p class="bx" id="qpu">-</p></div>
+<div class="r2" dir="ltr" style="margin-top:8px">
+<div><span class="lb">مجال −</span><p class="bx" id="qpumn">-</p></div>
+<div><span class="lb">مجال +</span><p class="bx" id="qpumx">-</p></div>
+</div>
+<div class="sep"></div>
+<div class="r2" dir="ltr">
+<div><span class="lb">Carton</span><p class="bx" id="qcart">-</p><p class="bx sm" id="qcartdim">-</p></div>
+<div><span class="lb">Sachet</span><p class="bx" id="qsach">-</p><p class="bx sm" id="qsachdim">-</p></div>
+</div>
+<div dir="ltr" style="margin-top:10px"><span class="lb">Plat Ref</span><p class="bx" id="qplt">-</p></div>
+<div dir="ltr" style="margin-top:8px"><span class="lb">Plat D.</span><p class="bx" id="qpltdim">-</p></div>
+<div class="sep"></div>
+<div class="r2">
+<button class="sq" type="button" data-go="fulldb" style="height:56px;font-size:16px">◄ Base de données</button>
+<button class="sq" type="button" id="qnext" style="height:56px;font-size:16px">تالي ►</button>
 </div>
 </section>
 
 <!-- CARTON DB -->
 <section id="carton" class="v">
-<button class="back" data-go="p3">➔</button>
+<div class="navbar">
+<button class="back" type="button" data-nav="back" title="رجوع">➔</button>
+<button class="back" type="button" data-nav="fwd" title="التالي">⬅</button>
+<button class="back" type="button" data-go="home" title="home">⌂</button>
+</div>
 <label class="lb" for="cq">recherche</label>
 <input id="cq" class="in" type="text" dir="ltr" autocomplete="off">
 <div class="pager">
@@ -209,7 +242,11 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 
 <!-- SACHETS DB -->
 <section id="sachets" class="v">
-<button class="back" data-go="p3">➔</button>
+<div class="navbar">
+<button class="back" type="button" data-nav="back" title="رجوع">➔</button>
+<button class="back" type="button" data-nav="fwd" title="التالي">⬅</button>
+<button class="back" type="button" data-go="home" title="home">⌂</button>
+</div>
 <label class="lb" for="sq">recherche</label>
 <input id="sq" class="in" type="text" dir="ltr" autocomplete="off">
 <div class="pager">
@@ -225,12 +262,22 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 
 <!-- THERMOFORMAGE -->
 <section id="thermo" class="v">
-<button class="back" data-go="p3">➔</button>
+<div class="navbar">
+<button class="back" type="button" data-nav="back" title="رجوع">➔</button>
+<button class="back" type="button" data-nav="fwd" title="التالي">⬅</button>
+<button class="back" type="button" data-go="home" title="home">⌂</button>
+</div>
 <p class="title">rapport thermoformage</p>
 <label class="lb" for="tref">recherche</label>
 <div class="search-row">
-<button class="dbbtn" id="tdb" type="button" title="قاعدة البيانات">🗄</button>
+<button class="dbbtn" id="tdb" type="button" title="menu">☰</button>
 <input id="tref" class="in" type="text" placeholder="HP018RS09C1P64" dir="ltr" autocomplete="off">
+</div>
+<div class="menu" id="tmenu" hidden>
+<button type="button" data-to="fulldb">Base de données</button>
+<button type="button" data-to="sachets">Sachets</button>
+<button type="button" data-to="carton">Carton</button>
+<button type="button" data-to="rq">Rapport qualité</button>
 </div>
 <div class="chips" id="tchips"></div>
 <div class="sep"></div>
@@ -260,8 +307,8 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 <div class="sep"></div>
 <!-- Row 4 LTR -->
 <div class="r4" dir="ltr">
-<div><span class="lb">NB sachet/CRT</span><p class="bx" id="tnbsach">-</p></div>
-<div><span class="lb">NB unit/sachet</span><p class="bx" id="tnbunits">-</p></div>
+<div><span class="lb">NBR paquet</span><p class="bx" id="tnbsach">-</p></div>
+<div><span class="lb">NBR unite paquet</span><p class="bx" id="tnbunits">-</p></div>
 <div><span class="lb">NB CRT/PLT</span><p class="bx" id="tnbplt">-</p></div>
 <div>
 <span class="lb">REF PLT</span>
@@ -274,7 +321,11 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 
 <!-- FULL DB browser -->
 <section id="fulldb" class="v">
-<button class="back" data-go="p3">➔</button>
+<div class="navbar">
+<button class="back" type="button" data-nav="back" title="رجوع">➔</button>
+<button class="back" type="button" data-nav="fwd" title="التالي">⬅</button>
+<button class="back" type="button" data-go="home" title="home">⌂</button>
+</div>
 <label class="lb" for="fq">recherche</label>
 <input id="fq" class="in" type="text" placeholder="reference" dir="ltr" autocomplete="off">
 <div class="pager">
@@ -293,22 +344,50 @@ td.k{width:42px;text-align:center;color:var(--muted);font-weight:600;border-righ
 </div>
 <script>
 /* ========== NAV ========== */
-var PAGES=['home','p1','p2','p3','carton','sachets','thermo','fulldb','rq'];
+var PAGES=['home','p1','p2','carton','sachets','thermo','fulldb','rq'];
 function show(id){
 PAGES.forEach(function(x){var el=document.getElementById(x);if(el)el.className='v'+(x===id?' on':'');});
 window.scrollTo(0,0);
 }
-document.querySelectorAll('[data-go]').forEach(function(b){
-b.addEventListener('click',function(){
-var id=b.getAttribute('data-go');
+/* التنقل : رجوع للوراء / سهم للصفحة اللي موراها (نفس تاريخ التصفح تاع التلفون) */
+var navStack=['home'],navPos=0,histOK=true;
+function updateNav(){
+document.querySelectorAll('[data-nav="back"]').forEach(function(b){b.disabled=navPos<=0;});
+document.querySelectorAll('[data-nav="fwd"]').forEach(function(b){b.disabled=navPos>=navStack.length-1;});
+}
+function render(){
+var id=navStack[navPos];
 show(id);
-if(id==='fulldb') renderFullDb();
-try{history.pushState({p:id},'');}catch(e){}
+if(id==='fulldb')renderFullDb();
+updateNav();
+}
+function navTo(id){
+if(id===navStack[navPos])return;
+navStack=navStack.slice(0,navPos+1);
+navStack.push(id);
+navPos++;
+try{history.pushState({i:navPos},'');}catch(e){histOK=false;}
+render();
+}
+function navMove(d){
+var t=navPos+d;
+if(t<0||t>=navStack.length)return;
+if(histOK){try{history.go(d);return;}catch(e){histOK=false;}}
+navPos=t;render();
+}
+try{history.replaceState({i:0},'');}catch(e){histOK=false;}
+document.querySelectorAll('[data-go]').forEach(function(b){
+b.addEventListener('click',function(){navTo(b.getAttribute('data-go'));});
 });
+document.querySelectorAll('[data-nav]').forEach(function(b){
+b.addEventListener('click',function(){navMove(b.getAttribute('data-nav')==='back'?-1:1);});
 });
 window.addEventListener('popstate',function(e){
-show(e.state&&e.state.p?e.state.p:'home');
+var i=(e.state&&e.state.i!=null)?e.state.i:0;
+if(i>=navStack.length)i=navStack.length-1;
+navPos=i;render();
 });
+updateNav();
 
 /* ========== HELPERS ========== */
 function f2(n){return isFinite(n)?(Math.round(n*100)/100).toFixed(2):'-'}
@@ -335,10 +414,6 @@ var ge=parseFloat(g('ge').value);
 var en=parseFloat(g('en').value);
 var d=w*p/100,mn=w-d,mx=w+d;
 var res=(en!==0)?ge/en:NaN;
-g('mn').textContent=f2(mn);
-g('mx').textContent=f2(mx);
-g('romx').textContent=f2(mx*u/1000+c);
-g('romn').textContent=f2(mn*u/1000+c);
 g('r').textContent=f2(w*u/1000+c);
 g('rmn').textContent=f2(res*(1-p/100)*u/1000+c);
 g('rmx').textContent=f2(res*(1+p/100)*u/1000+c);
@@ -704,7 +779,7 @@ makePager({data:SACHETS,input:'sq',tbody:'stb',prev:'sprev',next:'snext',info:'s
 
 /* ========== THERMOFORMAGE ========== */
 function extractColor(ref){
-var m=ref.match(/^HP\d{3}([A-Z]{2})/i);
+var m=ref.match(/^HP\d{3,4}([A-Z]{2})/i);
 return m?m[1].toUpperCase():'-';
 }
 function extractMicLaize(bobine){
@@ -769,9 +844,9 @@ g('tsachet').classList.add('dim');
 g('tsachdim').textContent='-';
 g('tsachdim').classList.add('dim');
 }
-g('tnbsach').textContent=row.nbrUnitePaque!=null?String(row.nbrUnitePaque):'-';
+g('tnbsach').textContent=row.nbrPaquet!=null?String(row.nbrPaquet):'-';
 g('tnbsach').classList.remove('dim');
-g('tnbunits').textContent=row.nbrPaquet!=null?String(row.nbrPaquet):'-';
+g('tnbunits').textContent=row.nbrUnitePaque!=null?String(row.nbrUnitePaque):'-';
 g('tnbunits').classList.remove('dim');
 g('tnbplt').textContent=row.nbrCartoPar!=null?String(row.nbrCartoPar):'-';
 g('tnbplt').classList.remove('dim');
@@ -805,11 +880,6 @@ g('tchips').appendChild(b);
 });
 }
 g('tref').addEventListener('input',searchThermo);
-g('tdb').addEventListener('click',function(){
-show('fulldb');
-renderFullDb();
-try{history.pushState({p:'fulldb'},'');}catch(e){}
-});
 
 /* ========== RAPPORT QUALITE (fiche) ========== */
 function findCartonDim(ref){
@@ -823,33 +893,50 @@ var ok=val!=null&&val!==''&&val!=='-';
 el.textContent=ok?String(val):'-';
 if(ok)el.classList.remove('dim');else el.classList.add('dim');
 }
-function qSync(){
-/* carton vide + résultat viennent de la page "rapport qualité" (p1) */
-var c=g('c').value.trim();
-qSet('qcv',c!==''?c:null);
-var r=g('r').textContent;
-qSet('qtot',r!=='-'?r:null);
-}
+var qRow=null;
+var Q_IDS=['qdp','qrp','qcp','qins','qmic','qlaize','qppr','qpprmn','qpprmx','qnb','qpu','qpumn','qpumx','qcart','qcartdim','qsach','qsachdim','qplt','qpltdim'];
 function qClear(){
-['qins','qlogo','qmic','qlaize','qpoids','qnb','qsach','qsachdim','qcart','qcartdim','qplt','qpltdim'].forEach(function(id){qSet(id,null);});
+qRow=null;
+Q_IDS.forEach(function(id){qSet(id,null);});
+g('qpct').textContent='';
 g('qchips').textContent='';
 }
+function qSync(){
+/* P.P.R + مجال + P.U : مبنية على القرامج و عدد الوحدات و C.V */
+if(!qRow)return;
+var w=pGrammage(qRow),u=qRow.nbrUniteCrt;
+var cv=parseFloat(g('qcvin').value)||0;
+if(!isFinite(w)){['qppr','qpprmn','qpprmx','qpu','qpumn','qpumx'].forEach(function(id){qSet(id,null);});g('qpct').textContent='';return;}
+var pct=parseFloat(pPct(w)),d=w*pct/100,mn=w-d,mx=w+d;
+g('qpct').textContent='('+pct+'%)';
+qSet('qppr',String(w));
+qSet('qpprmn',f2(mn));
+qSet('qpprmx',f2(mx));
+if(u!=null&&isFinite(u)){
+qSet('qpu',f2(w*u/1000+cv));
+qSet('qpumn',f2(mn*u/1000+cv));
+qSet('qpumx',f2(mx*u/1000+cv));
+}else{['qpu','qpumn','qpumx'].forEach(function(id){qSet(id,null);});}
+}
 function qFill(row){
-qSet('qlogo','HP/'+row.ref);
+qRow=row;
+qSet('qdp',row.model);
+qSet('qrp','HP/'+row.ref);
+var col=extractColor(row.ref);
+qSet('qcp',col!=='-'?col:null);
 qSet('qins',row.insert);
 var ml=extractMicLaize(row.bobine);
 qSet('qmic',ml.mic);
 qSet('qlaize',ml.laize);
-var p=extractPoids(row.model,row.ref);
-qSet('qpoids',p!=='-'?p.replace(/\s*GR$/i,''):null);
 qSet('qnb',row.nbrUniteCrt!=null?row.nbrUniteCrt:null);
-qSet('qsach',row.refSachet);
-qSet('qsachdim',findSachetDim(row.refSachet));
 qSet('qcart',row.refCarton);
 qSet('qcartdim',findCartonDim(row.refCarton));
+qSet('qsach',row.refSachet);
+qSet('qsachdim',findSachetDim(row.refSachet));
 qSet('qplt',row.refPalette);
 qSet('qpltdim',PALETTE[row.refPalette]);
 g('qchips').textContent='';
+qSync();
 }
 function qSearch(){
 var q=g('qref').value.trim().toUpperCase().replace(/\s+/g,'').replace(/^HP\//,'');
@@ -874,15 +961,27 @@ g('qchips').appendChild(b);
 });
 }
 g('qref').addEventListener('input',qSearch);
-g('qdb').addEventListener('click',function(){
-show('fulldb');
-renderFullDb();
-try{history.pushState({p:'fulldb'},'');}catch(e){}
+g('qcvin').addEventListener('input',qSync);
+/* menu ☰ : Base de données / Sachets / Carton / Rapport qualité */
+function wireMenu(btn,menu){
+g(btn).addEventListener('click',function(){var m=g(menu);m.hidden=!m.hidden;});
+g(menu).querySelectorAll('button').forEach(function(b){
+b.addEventListener('click',function(){
+g(menu).hidden=true;
+navTo(b.getAttribute('data-to'));
 });
-['pct','w','u','c','ge','en'].forEach(function(i){g(i).addEventListener('input',qSync)});
-document.querySelectorAll('[data-go="rq"]').forEach(function(b){b.addEventListener('click',qSync);});
-window.addEventListener('popstate',qSync);
-qClear();qSync();
+});
+}
+wireMenu('qdb','qmenu');
+wireMenu('tdb','tmenu');
+/* تالي : الصفحة الثانوية (حساب النسبة) تتعبى بنفس المنتوج و C.V */
+g('qnext').addEventListener('click',function(){
+if(qRow){g('pref').value=qRow.ref;pFill(qRow);}
+g('c').value=g('qcvin').value;
+calc();
+navTo('p1');
+});
+qClear();
 
 /* ========== P1 : remplissage automatique depuis la base ========== */
 var pAuto=false;
